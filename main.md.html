@@ -57,6 +57,7 @@
 <li>Note <em>possible</em>, but not yet exploitable vulnerabilities</li>
 </ul></li>
 </ul>
+<h2 id="security-frameworks">Security Frameworks</h2>
 <h3 id="network-specific-threat-examples">Network Specific Threat Examples</h3>
 <ul>
 <li>Remote Attacks</li>
@@ -78,4 +79,76 @@
 <li><strong>I</strong>nformation Disclosure</li>
 <li><strong>D</strong>oS</li>
 <li><strong>E</strong>scalation of Privileges</li>
+</ul>
+<h3 id="security-policies">Security policies</h3>
+<ul>
+<li>Classification of system states into “allowed” and “forbidden” states</li>
+<li>Secure system: Is only in allowed states</li>
+<li>Breached system: Is in forbidden state</li>
+</ul>
+<h2 id="malware">Malware</h2>
+<ul>
+<li>Performs unwanted functions</li>
+<li>Often runs without user’s consent</li>
+<li>Telemetry (often hidden in proprietary software behind EULAs)</li>
+<li>Backdoors</li>
+</ul>
+<h2 id="networking">Networking</h2>
+<h3 id="tcp-overview">TCP Overview</h3>
+<ul>
+<li>Characteristics
+<ul>
+<li>Reliable</li>
+<li>Connection-Oriented</li>
+<li>Full-Duplex</li>
+<li>Layer atop IP</li>
+<li>Connection management: Setup, Release and Abort</li>
+<li>Ordered delivery (package sequence control)</li>
+<li>Repetition of lost packets</li>
+<li>End-to-End ACKs</li>
+<li>Checksum in header</li>
+</ul></li>
+<li>Identified by a 5-tuple
+<ul>
+<li>Source IP</li>
+<li>Destination IP</li>
+<li>Transport Protocol</li>
+<li>Source Port</li>
+<li>Destination Port</li>
+</ul></li>
+</ul>
+<h3 id="tcp-connection-establishment">TCP Connection Establishment</h3>
+<ul>
+<li>Virtual connection between two systems</li>
+<li>3-Way-Handshake with connection states</li>
+</ul>
+<p>An example connection from the client to the server:</p>
+<pre class="plaintext"><code>&lt;Client&gt;                                              &lt;Server&gt;
+
+[Closed]                                              [Closed]
+                  SEQ=x     CTL=SYN               =&gt;
+[SYN Sent]
+              &lt;=  SEQ=y     CTL=SYN+ACK   ACK=x+1
+                                                      [SYN Received]
+                  SEQ=x+1   CTL=ACK       ACK=y+1 =&gt;
+[Established]                                         [Established]</code></pre>
+<h3 id="ip-security-issues">IP Security Issues</h3>
+<ul>
+<li>IP header doesn’t have confidentiality or integrity protection
+<ul>
+<li>Faking the sender address is easy to do</li>
+<li>Traffic can be analyzed by sniffing packet headers</li>
+</ul></li>
+<li>IP payload doesn’t have confidentiality or integrity protection
+<ul>
+<li>Eavesdropping is possible by sniffing packets</li>
+</ul></li>
+<li>Loose coupling with lower layers:
+<ul>
+<li>Easy to divert traffic</li>
+<li>Availability can be easily attacked</li>
+<li>Confidentiality and integrity can’t be guaranteed</li>
+</ul></li>
+<li>Unprotected error signaling via ICMP: Fake error messages can affect availability</li>
+<li>DNS is insecure; i.e. DNS spoofing</li>
 </ul>
