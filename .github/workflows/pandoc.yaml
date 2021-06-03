@@ -1,0 +1,29 @@
+name: pandoc CI
+
+on: [push, pull_request]
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile PDFs
+        run: make
+      - name: Publish PDFs to GitHub releases
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          files: |
+            out/release/all.zip
+      - name: Publish HTML to GitHub pages
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: out/docs
+          git-config-name: GitHub Pages Bot
+          git-config-email: bot@example.com
