@@ -1,0 +1,37 @@
+<h1 id="uni-it-security-notes">Uni IT Security Notes</h1>
+<h2 id="basics">Basics</h2>
+<h3 id="security-mindset">Security Mindset</h3>
+<ul>
+<li>Focus on weaknesses, not on features</li>
+<li>Don’t rely on the “good case”</li>
+<li>Anticipate what an attacker could do to a system</li>
+<li>Weight security against user experience and privacy</li>
+</ul>
+<h3 id="security-objectives">Security Objectives</h3>
+<ul>
+<li><strong>Confidentiality</strong>/<code>conf</code>
+<ul>
+<li>Nobody but the legitimate receiver can read a message</li>
+<li>Third party cannot gain access to communication patterns</li>
+</ul></li>
+<li><strong>Integrity</strong>/<code>int</code>: The contents of communication can’t be changed</li>
+<li><strong>Authenticity</strong>/<code>authN</code>
+<ul>
+<li><strong>Entity Authentication</strong>: Communication partners can prove their respective identity to one another</li>
+<li><strong>Message Authentication</strong>: It can be verified that a message is authentic (unaltered and sent by the correct entity)</li>
+</ul></li>
+<li><strong>Authorization</strong>/<code>authZ</code>
+<ul>
+<li>Service or information is only available to those who have correct access rights</li>
+<li>Depends on authentication being set up</li>
+</ul></li>
+<li><strong>Non-Repudiation</strong>/<code>nRep</code>: A sender cannot deny having sent a message or used a service</li>
+<li><strong>Availability</strong>/<code>avail</code>: Service is available with sufficient performance</li>
+<li><strong>Access Control</strong>/<code>ac</code>: Access to services and information is controlled</li>
+<li><strong>Privacy</strong>/<code>priv</code>
+<ul>
+<li>Restricted access to identity-related data</li>
+<li>Anonymity</li>
+<li>Pseudonymity</li>
+</ul></li>
+</ul>
