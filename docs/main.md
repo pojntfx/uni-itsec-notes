@@ -54,6 +54,8 @@
   - Be careful with perimeter security: What if perimeter has been breached?
   - Note _possible_, but not yet exploitable vulnerabilities
 
+## Security Frameworks
+
 ### Network Specific Threat Examples
 
 - Remote Attacks
@@ -75,3 +77,70 @@
 - **I**nformation Disclosure
 - **D**oS
 - **E**scalation of Privileges
+
+### Security policies
+
+- Classification of system states into "allowed" and "forbidden" states
+- Secure system: Is only in allowed states
+- Breached system: Is in forbidden state
+
+## Malware
+
+- Performs unwanted functions
+- Often runs without user's consent
+- Telemetry (often hidden in proprietary software behind EULAs)
+- Backdoors
+
+## Networking
+
+### TCP Overview
+
+- Characteristics
+  - Reliable
+  - Connection-Oriented
+  - Full-Duplex
+  - Layer atop IP
+  - Connection management: Setup, Release and Abort
+  - Ordered delivery (package sequence control)
+  - Repetition of lost packets
+  - End-to-End ACKs
+  - Checksum in header
+- Identified by a 5-tuple
+  - Source IP
+  - Destination IP
+  - Transport Protocol
+  - Source Port
+  - Destination Port
+
+### TCP Connection Establishment
+
+- Virtual connection between two systems
+- 3-Way-Handshake with connection states
+
+An example connection from the client to the server:
+
+```plaintext
+<Client>                                              <Server>
+
+[Closed]                                              [Closed]
+                  SEQ=x     CTL=SYN               =>
+[SYN Sent]
+              <=  SEQ=y     CTL=SYN+ACK   ACK=x+1
+                                                      [SYN Received]
+                  SEQ=x+1   CTL=ACK       ACK=y+1 =>
+[Established]                                         [Established]
+```
+
+### IP Security Issues
+
+- IP header doesn't have confidentiality or integrity protection
+  - Faking the sender address is easy to do
+  - Traffic can be analyzed by sniffing packet headers
+- IP payload doesn't have confidentiality or integrity protection
+  - Eavesdropping is possible by sniffing packets
+- Loose coupling with lower layers:
+  - Easy to divert traffic
+  - Availability can be easily attacked
+  - Confidentiality and integrity can't be guaranteed
+- Unprotected error signaling via ICMP: Fake error messages can affect availability
+- DNS is insecure; i.e. DNS spoofing
