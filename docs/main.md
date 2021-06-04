@@ -206,3 +206,56 @@ To circumvent this restriction:
 4. Attacker sends TCP connection ACK packet to B with ACK matching the initial sequence number chosen by B (which has to be guessed, as B sent the SYN+ACK packet to A, not the attacker)
 
 Only works if B uses a predicable algorithm for it's ISN and packet filters aren't in place.
+
+## Perimeter Defense in Pratice
+
+### Architecture Recommendations
+
+- Known from medieval cities, castles etc.
+- Definition of system boundary between "inside" and "outside"
+- Different threat models for inside and outside
+  - **Inside**: Trusted
+  - **Outside**: Untrusted
+- Objectives
+  - Create said boundary
+  - Only a defined set of communication relations is allowed
+  - Special security checks
+  - Limited number of interconnection points
+  - Simpler to manage and audit than a completely open architecture
+- Problems
+  - Requires intelligent selection of system boundaries
+  - May require multiple levels of perimeters
+  - No system/user in the "trusted inside" can truly be trusted
+
+### Application in Networking
+
+- Installing security devices at the network border
+- Seperation of network areas into inside/outside
+- Prevent sensistive information from being sent to the outside (view the system in the inside as the potential, probably unintentional attacker)
+- Multiple levels can increase security
+- But: Perimeter security is not sufficient on its own!
+  - The will probably be additional non-secured paths into the network (i.e. `ssh -R`)
+  - Some malicious traffic might look like "normal" traffic and can pass
+
+### Stateless Packet Filter
+
+- Access Control List (ACL): Applies set of rules to each incoming packets
+- Discards (denies, blocks) or forwards (allows, permits) packets based on ACL
+- Typically configured by IP and TCP/UDP header fields
+- Stateless inspection: Established connections can only be detected with the ACK control flag
+- Can be easy to misconfigure by forgetting essential protocols
+  - DNS
+  - ICMP
+- Advantages
+  - Fast/High throughput
+  - Simple to realize
+  - Software-based, can be added as a package
+  - Simple to configure
+- Disadvantages
+  - Inflexible
+  - Many attacks can only be detected using stateful filtering
+  - Rules and their priorities can easily get confusing
+- Default discard policy
+  - Block everything which is not explicitly allowed (allowlist)
+  - Issue: The security policy has to be revised for each new protocol or service
+  - This rule must come last/have the lowest priority, behind all "allowing" rules
