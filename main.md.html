@@ -152,3 +152,76 @@
 <li>Unprotected error signaling via ICMP: Fake error messages can affect availability</li>
 <li>DNS is insecure; i.e. DNS spoofing</li>
 </ul>
+<h3 id="tcp-security-issues">TCP Security Issues</h3>
+<ul>
+<li>TCP header doesn’t have confidentiality or integrity protection</li>
+<li>Session hijacking
+<ul>
+<li>When sniffing session details, attacker can impersonate a peer in a TCP connection</li>
+<li>Attackers can guess session details and attack remotely using spoofed IP addresses</li>
+</ul></li>
+<li>RST attack: Attackers can reset/abort attacks by injecting packets with the RST flag</li>
+<li>Port scanning
+<ul>
+<li>Find out open ports</li>
+<li>Determine software running on port</li>
+</ul></li>
+<li>SYN flooding
+<ul>
+<li>Overload system resources by initializing many connections and not pursuing them</li>
+</ul></li>
+</ul>
+<h3 id="port-scanning">Port Scanning</h3>
+<ul>
+<li>Objective: <strong>Collect information</strong>
+<ul>
+<li>Installed services</li>
+<li>Software versions</li>
+<li>OS</li>
+<li>Firewall</li>
+</ul></li>
+<li>Enumeration based on port
+<ul>
+<li>Well-known ports (i.e. SSH → 22)</li>
+<li>Invalid connection requests: Different way of error handling can be used to fingerprint the OS</li>
+</ul></li>
+<li>Possible scanning methods
+<ul>
+<li>TCP connect scan</li>
+<li>Half-open scan</li>
+<li>SYN-ACK scan</li>
+<li>ACK scan</li>
+</ul></li>
+</ul>
+<h3 id="tcp-protection-mechanisms">TCP Protection Mechanisms</h3>
+<ul>
+<li>SYN flood protection
+<ul>
+<li>Limit rate of SYN packets</li>
+<li>SYN cookies (RFC 4987)
+<ul>
+<li>Limit resources</li>
+<li>Half-open connections are not stored in the connection table but instead as a hash in the ISN</li>
+<li>Only if the 3rd ACK handshake packet matches the sequence number, the connection is added to the connection table</li>
+<li>Server does not need to maintain any state information on half-open connections: Resources can’t be exhausted</li>
+</ul></li>
+</ul></li>
+<li>Connections are only accepted if the sequence numbers are within a certain range of acceptable values (attackers would have to sniff sequence numbers or guess them)</li>
+</ul>
+<h3 id="session-hijacking">Session Hijacking</h3>
+<ul>
+<li>Attacker takes over existing connection between two peers</li>
+<li>Requirement: Attacker has to sniff or guess sequence numbers of the connection correctly</li>
+</ul>
+<h3 id="rst-attacks-in-connection-dos">RST Attacks (In-Connection DoS)</h3>
+<p>Inject packet with RST flag into ongoing connection: Connection has to be aborted immediately</p>
+<h3 id="blind-ip-spoofing">Blind IP Spoofing</h3>
+<p>Firewall is configured to only allow one source IP address and destination IP address (A → B).</p>
+<p>To circumvent this restriction:</p>
+<ol type="1">
+<li>Attackers starts DoS attack on A to prevent A from sending RST packets to B</li>
+<li>Attacker sends TCP connection setup packet with A’s source IP address to B</li>
+<li>B sends SYN+ACK packet to A, but can’t respond due to DoS</li>
+<li>Attacker sends TCP connection ACK packet to B with ACK matching the initial sequence number chosen by B (which has to be guessed, as B sent the SYN+ACK packet to A, not the attacker)</li>
+</ol>
+<p>Only works if B uses a predicable algorithm for it’s ISN and packet filters aren’t in place.</p>
