@@ -225,3 +225,71 @@
 <li>Attacker sends TCP connection ACK packet to B with ACK matching the initial sequence number chosen by B (which has to be guessed, as B sent the SYN+ACK packet to A, not the attacker)</li>
 </ol>
 <p>Only works if B uses a predicable algorithm for it’s ISN and packet filters aren’t in place.</p>
+<h2 id="perimeter-defense-in-pratice">Perimeter Defense in Pratice</h2>
+<h3 id="architecture-recommendations">Architecture Recommendations</h3>
+<ul>
+<li>Known from medieval cities, castles etc.</li>
+<li>Definition of system boundary between “inside” and “outside”</li>
+<li>Different threat models for inside and outside
+<ul>
+<li><strong>Inside</strong>: Trusted</li>
+<li><strong>Outside</strong>: Untrusted</li>
+</ul></li>
+<li>Objectives
+<ul>
+<li>Create said boundary</li>
+<li>Only a defined set of communication relations is allowed</li>
+<li>Special security checks</li>
+<li>Limited number of interconnection points</li>
+<li>Simpler to manage and audit than a completely open architecture</li>
+</ul></li>
+<li>Problems
+<ul>
+<li>Requires intelligent selection of system boundaries</li>
+<li>May require multiple levels of perimeters</li>
+<li>No system/user in the “trusted inside” can truly be trusted</li>
+</ul></li>
+</ul>
+<h3 id="application-in-networking">Application in Networking</h3>
+<ul>
+<li>Installing security devices at the network border</li>
+<li>Seperation of network areas into inside/outside</li>
+<li>Prevent sensistive information from being sent to the outside (view the system in the inside as the potential, probably unintentional attacker)</li>
+<li>Multiple levels can increase security</li>
+<li>But: Perimeter security is not sufficient on its own!
+<ul>
+<li>The will probably be additional non-secured paths into the network (i.e. <code>ssh -R</code>)</li>
+<li>Some malicious traffic might look like “normal” traffic and can pass</li>
+</ul></li>
+</ul>
+<h3 id="stateless-packet-filter">Stateless Packet Filter</h3>
+<ul>
+<li>Access Control List (ACL): Applies set of rules to each incoming packets</li>
+<li>Discards (denies, blocks) or forwards (allows, permits) packets based on ACL</li>
+<li>Typically configured by IP and TCP/UDP header fields</li>
+<li>Stateless inspection: Established connections can only be detected with the ACK control flag</li>
+<li>Can be easy to misconfigure by forgetting essential protocols
+<ul>
+<li>DNS</li>
+<li>ICMP</li>
+</ul></li>
+<li>Advantages
+<ul>
+<li>Fast/High throughput</li>
+<li>Simple to realize</li>
+<li>Software-based, can be added as a package</li>
+<li>Simple to configure</li>
+</ul></li>
+<li>Disadvantages
+<ul>
+<li>Inflexible</li>
+<li>Many attacks can only be detected using stateful filtering</li>
+<li>Rules and their priorities can easily get confusing</li>
+</ul></li>
+<li>Default discard policy
+<ul>
+<li>Block everything which is not explicitly allowed (allowlist)</li>
+<li>Issue: The security policy has to be revised for each new protocol or service</li>
+<li>This rule must come last/have the lowest priority, behind all “allowing” rules</li>
+</ul></li>
+</ul>
