@@ -144,3 +144,65 @@ An example connection from the client to the server:
   - Confidentiality and integrity can't be guaranteed
 - Unprotected error signaling via ICMP: Fake error messages can affect availability
 - DNS is insecure; i.e. DNS spoofing
+
+### TCP Security Issues
+
+- TCP header doesn't have confidentiality or integrity protection
+- Session hijacking
+  - When sniffing session details, attacker can impersonate a peer in a TCP connection
+  - Attackers can guess session details and attack remotely using spoofed IP addresses
+- RST attack: Attackers can reset/abort attacks by injecting packets with the RST flag
+- Port scanning
+  - Find out open ports
+  - Determine software running on port
+- SYN flooding
+  - Overload system resources by initializing many connections and not pursuing them
+
+### Port Scanning
+
+- Objective: **Collect information**
+  - Installed services
+  - Software versions
+  - OS
+  - Firewall
+- Enumeration based on port
+  - Well-known ports (i.e. SSH → 22)
+  - Invalid connection requests: Different way of error handling can be used to fingerprint the OS
+- Possible scanning methods
+  - TCP connect scan
+  - Half-open scan
+  - SYN-ACK scan
+  - ACK scan
+
+### TCP Protection Mechanisms
+
+- SYN flood protection
+  - Limit rate of SYN packets
+  - SYN cookies (RFC 4987)
+    - Limit resources
+    - Half-open connections are not stored in the connection table but instead as a hash in the ISN
+    - Only if the 3rd ACK handshake packet matches the sequence number, the connection is added to the connection table
+    - Server does not need to maintain any state information on half-open connections: Resources can't be exhausted
+- Connections are only accepted if the sequence numbers are within a certain range of acceptable values (attackers would have to sniff sequence numbers or guess them)
+
+### Session Hijacking
+
+- Attacker takes over existing connection between two peers
+- Requirement: Attacker has to sniff or guess sequence numbers of the connection correctly
+
+### RST Attacks (In-Connection DoS)
+
+Inject packet with RST flag into ongoing connection: Connection has to be aborted immediately
+
+### Blind IP Spoofing
+
+Firewall is configured to only allow one source IP address and destination IP address (A → B).
+
+To circumvent this restriction:
+
+1. Attackers starts DoS attack on A to prevent A from sending RST packets to B
+2. Attacker sends TCP connection setup packet with A's source IP address to B
+3. B sends SYN+ACK packet to A, but can't respond due to DoS
+4. Attacker sends TCP connection ACK packet to B with ACK matching the initial sequence number chosen by B (which has to be guessed, as B sent the SYN+ACK packet to A, not the attacker)
+
+Only works if B uses a predicable algorithm for it's ISN and packet filters aren't in place.
