@@ -259,3 +259,48 @@ Only works if B uses a predicable algorithm for it's ISN and packet filters aren
   - Block everything which is not explicitly allowed (allowlist)
   - Issue: The security policy has to be revised for each new protocol or service
   - This rule must come last/have the lowest priority, behind all "allowing" rules
+
+### Stateful Packet Filters
+
+- Store connection states
+- Can make decisions based on
+  - TCP connections
+  - UDP replies to previous outgoing packet with same IP:Port relation ("UDP Connection")
+  - Application protocol states
+- Similar to application layer gates/proxy firewalls, but less intruding in communication
+- Rules can be more specific than in stateless packet filters
+- Rules are easier to enforce, i.e. incoming TCP packets don't have to be allowed in because they have ACK set
+
+### Stateful Firewalls
+
+- Tries to fix the problems of stateless inspection
+  - To many packets have to be allowed by default (ACK → No SYN-scanning protection)
+  - Protocols like FTP or SIP, which dynamically allocate port numbers, can't be filtered securely
+- Create state per TCP or UDP flow
+  - Source and Destination IP:Port
+  - Protocol
+  - Connection state
+- A packet which is not associated with a state is dropped immediately
+- Packets which belong to a previously established TCP/UDP "connection" are allowed to pass without further checks
+- State tables have to be cleaned up periodically to prevent resource starvation
+
+### Application Layer Proxies
+
+- Protected host during connection establishment
+- Different kinds
+  - Application level
+  - Circuit level
+  - Forward proxy (client-side)
+  - Reverse proxy (server-side)
+
+### Application Level Gateways
+
+- Conversion between different application layer protocols
+- Evaluation up to OSI layer 7
+  - Protocol verification
+  - Authentication
+  - Malware scanning
+  - Spam filtering
+  - Attack pattern filtering
+- Advantage: Security policies can be enforced at application level
+- Disadvantage: Computing and memory performance requirements
