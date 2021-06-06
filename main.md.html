@@ -293,3 +293,58 @@
 <li>This rule must come last/have the lowest priority, behind all “allowing” rules</li>
 </ul></li>
 </ul>
+<h3 id="stateful-packet-filters">Stateful Packet Filters</h3>
+<ul>
+<li>Store connection states</li>
+<li>Can make decisions based on
+<ul>
+<li>TCP connections</li>
+<li>UDP replies to previous outgoing packet with same IP:Port relation (“UDP Connection”)</li>
+<li>Application protocol states</li>
+</ul></li>
+<li>Similar to application layer gates/proxy firewalls, but less intruding in communication</li>
+<li>Rules can be more specific than in stateless packet filters</li>
+<li>Rules are easier to enforce, i.e. incoming TCP packets don’t have to be allowed in because they have ACK set</li>
+</ul>
+<h3 id="stateful-firewalls">Stateful Firewalls</h3>
+<ul>
+<li>Tries to fix the problems of stateless inspection
+<ul>
+<li>To many packets have to be allowed by default (ACK → No SYN-scanning protection)</li>
+<li>Protocols like FTP or SIP, which dynamically allocate port numbers, can’t be filtered securely</li>
+</ul></li>
+<li>Create state per TCP or UDP flow
+<ul>
+<li>Source and Destination IP:Port</li>
+<li>Protocol</li>
+<li>Connection state</li>
+</ul></li>
+<li>A packet which is not associated with a state is dropped immediately</li>
+<li>Packets which belong to a previously established TCP/UDP “connection” are allowed to pass without further checks</li>
+<li>State tables have to be cleaned up periodically to prevent resource starvation</li>
+</ul>
+<h3 id="application-layer-proxies">Application Layer Proxies</h3>
+<ul>
+<li>Protected host during connection establishment</li>
+<li>Different kinds
+<ul>
+<li>Application level</li>
+<li>Circuit level</li>
+<li>Forward proxy (client-side)</li>
+<li>Reverse proxy (server-side)</li>
+</ul></li>
+</ul>
+<h3 id="application-level-gateways">Application Level Gateways</h3>
+<ul>
+<li>Conversion between different application layer protocols</li>
+<li>Evaluation up to OSI layer 7
+<ul>
+<li>Protocol verification</li>
+<li>Authentication</li>
+<li>Malware scanning</li>
+<li>Spam filtering</li>
+<li>Attack pattern filtering</li>
+</ul></li>
+<li>Advantage: Security policies can be enforced at application level</li>
+<li>Disadvantage: Computing and memory performance requirements</li>
+</ul>
