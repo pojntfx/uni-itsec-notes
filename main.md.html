@@ -348,3 +348,131 @@
 <li>Advantage: Security policies can be enforced at application level</li>
 <li>Disadvantage: Computing and memory performance requirements</li>
 </ul>
+<h3 id="demilitarized-zone-dmz">Demilitarized Zone (DMZ)</h3>
+<ul>
+<li><strong>Outside world</strong>: Global Internet</li>
+<li><strong>Outside router</strong>: Routes packet to and from bastion host</li>
+<li><strong>Bastian host</strong>: Proxy server and relay host</li>
+<li><strong>Inside router</strong>: Routes packets only to and from bastion host</li>
+<li><strong>Inside (protected)</strong>: Intranet</li>
+</ul>
+<p>The DMZ creates 2/3 lines of defense by the use of a stub network.</p>
+<p>Multi-Level DMZs can create even more secure perimeter defenses:</p>
+<p>Global Internet → Access Router and Packet Filter → Public Services Host (offers i.e. public Web services) → Screening Router and Packet filter (prevents IP spoofing) → Mail host (for external mail communication) → Bastion host (i.e. proxy for FTP and Web access) → Intranet</p>
+<h3 id="web-application-firewalls-wafs">Web Application Firewalls (WAFs)</h3>
+<ul>
+<li>Acts on the application layer</li>
+<li>Is a reverse prxoy</li>
+<li>Can protect the web server from “evil” client input
+<ul>
+<li>Cross-Site scripting</li>
+<li>SQL injection: Filters out JS or SQL commands in client input by removing special symbols (i.e. <code>&lt;</code>, <code>'</code> etc)</li>
+<li>Cookie poisoning: Stores the hash values of sent cookies</li>
+<li>HTML manipulation: Encypts URL parameters</li>
+</ul></li>
+</ul>
+<h3 id="intrusion-detection-systems-ids">Intrusion Detection Systems (IDS)</h3>
+<ul>
+<li>Security product that is specialized on detecting anomalies during live operation of networks and computers
+<ul>
+<li>Virus/Botnet activity</li>
+<li>Suspicious network activity (malware phoning home)</li>
+</ul></li>
+<li>Basic Approaches
+<ul>
+<li><strong>Signature based</strong>: Use attack signatures/known malicious communication activity patterns</li>
+<li><strong>Anomaly based</strong>: Significant deviation from previously recorded baseline activity</li>
+<li><strong>Rule based</strong>: Define allowed by behaviour by app-specific set of legitimate actions</li>
+</ul></li>
+<li>Actions
+<ul>
+<li>Send ut alarm</li>
+<li>Logging</li>
+<li>Blocking of known patters</li>
+</ul></li>
+<li>Realization
+<ul>
+<li>Appliance</li>
+<li>Integration in firewall</li>
+<li>Integration into host</li>
+</ul></li>
+</ul>
+<h2 id="encryption">Encryption</h2>
+<h3 id="symmetric-encryption">Symmetric Encryption</h3>
+<p><strong>Alice</strong>:</p>
+<ol type="1">
+<li>Creates message</li>
+<li>Chooses key</li>
+<li>Computes cyphertext</li>
+<li>Send cyphertext to Bob</li>
+</ol>
+<p><strong>Eve</strong> (Attacker):</p>
+<ol type="1">
+<li>Copies cyphertext</li>
+<li>Tries to guess the key</li>
+</ol>
+<p><strong>Bob</strong>:</p>
+<ol type="1">
+<li>Receives cyphertext</li>
+<li>Uses key</li>
+<li>Computes plaintext</li>
+<li>Reads message</li>
+</ol>
+<h3 id="kerckhoffs-principle">Kerckhoffs’ Principle</h3>
+<ul>
+<li>From “La Cryptographie Militaire”</li>
+<li>Most important point: <strong>The security of a crypto system must lie in the non-disclosure of the key but not in the non-disclosure of the algorithm</strong></li>
+<li>Implementation
+<ul>
+<li>Keep secret which function you used for encryption</li>
+<li>But a disclosure of the set of functions should not create a problem</li>
+</ul></li>
+</ul>
+<h3 id="strong-algorithms">Strong Algorithms</h3>
+<ul>
+<li>There is no attack that can break it with less effort than a brute force attack (“complete enumeration”)</li>
+<li>There are so many keys that a complete search of key space is infeasable</li>
+</ul>
+<h3 id="crypto-attack-classes">Crypto Attack Classes</h3>
+<ul>
+<li><strong>Active</strong> attacks
+<ul>
+<li>Most relevant for cryptographic protocols</li>
+<li>Active interference (modification, insertion or deletion of messages)</li>
+<li>Man in the middle (MITM) can receive messages and modify them on the way to the receiver</li>
+</ul></li>
+<li><strong>Passive</strong> attacks: Pure eavesdropping, without interference with communication</li>
+</ul>
+<h3 id="perfect-security">Perfect Security</h3>
+<p>Cyphertext does not give any information you don’t already have about the plaintext</p>
+<h3 id="one-time-pad">One-Time-Pad</h3>
+<ul>
+<li><strong>Vernam Cypher</strong>: Create ciphertext by XOR addition of secret key and plaintext</li>
+<li><strong>Mauborgne</strong>: Random key, never re-use key (“one time”)</li>
+<li><strong>Shannon</strong>: OTP is unbreakable if key is …
+<ul>
+<li>Truly random</li>
+<li>As large</li>
+<li>Never reused</li>
+<li>Kept secret</li>
+</ul></li>
+</ul>
+<h3 id="stream-ciphers">Stream Ciphers</h3>
+<p>Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a <strong>Crytographically Secure Pseudo-Random Number Generator (CSPRNG)</strong>)</p>
+<h3 id="cryptographically-secure-pseudo-random-number-generators-csprng">Cryptographically Secure Pseudo-Random Number Generators (CSPRNG)</h3>
+<p>A CSPRNG must …</p>
+<ul>
+<li>Be unpredictable</li>
+<li>Be computationally infeasible to compute the next outputs</li>
+</ul>
+<p>… when the initial state of the CSPRNG is not known</p>
+<h3 id="design-principles-for-block-ciphers">Design Principles for Block Ciphers</h3>
+<p>Two methods for frustrating a statistical analysis:</p>
+<ul>
+<li><strong>Confusion</strong>: The ciphertext should depend on the plaintext in such a complicated way that an attacker cannot gain any information from the ciphertext (redundancy should not be visible anymore in the ciphertext)</li>
+<li><strong>Diffusion</strong>: Each plaintext and key bit should influence as many ciphertext bits as possible
+<ul>
+<li>Changing one bit in plaintext → Many pseudo-random changes in cyphertext</li>
+<li>Changing one bit in the key → Many pseudo-random changes in cyphertext</li>
+</ul></li>
+</ul>
