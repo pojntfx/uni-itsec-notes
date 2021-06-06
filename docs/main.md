@@ -304,3 +304,45 @@ Only works if B uses a predicable algorithm for it's ISN and packet filters aren
   - Attack pattern filtering
 - Advantage: Security policies can be enforced at application level
 - Disadvantage: Computing and memory performance requirements
+
+### Demilitarized Zone (DMZ)
+
+- **Outside world**: Global Internet
+- **Outside router**: Routes packet to and from bastion host
+- **Bastian host**: Proxy server and relay host
+- **Inside router**: Routes packets only to and from bastion host
+- **Inside (protected)**: Intranet
+
+The DMZ creates 2/3 lines of defense by the use of a stub network.
+
+Multi-Level DMZs can create even more secure perimeter defenses:
+
+Global Internet → Access Router and Packet Filter → Public Services Host (offers i.e. public Web services) → Screening Router and Packet filter (prevents IP spoofing) → Mail host (for external mail communication) → Bastion host (i.e. proxy for FTP and Web access) → Intranet
+
+### Web Application Firewalls (WAFs)
+
+- Acts on the application layer
+- Is a reverse prxoy
+- Can protect the web server from "evil" client input
+  - Cross-Site scripting
+  - SQL injection: Filters out JS or SQL commands in client input by removing special symbols (i.e. `<`, `'` etc)
+  - Cookie poisoning: Stores the hash values of sent cookies
+  - HTML manipulation: Encypts URL parameters
+
+### Intrusion Detection Systems (IDS)
+
+- Security product that is specialized on detecting anomalies during live operation of networks and computers
+  - Virus/Botnet activity
+  - Suspicious network activity (malware phoning home)
+- Basic Approaches
+  - **Signature based**: Use attack signatures/known malicious communication activity patterns
+  - **Anomaly based**: Significant deviation from previously recorded baseline activity
+  - **Rule based**: Define allowed by behaviour by app-specific set of legitimate actions
+- Actions
+  - Send ut alarm
+  - Logging
+  - Blocking of known patters
+- Realization
+  - Appliance
+  - Integration in firewall
+  - Integration into host
