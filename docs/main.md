@@ -346,3 +346,83 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
   - Appliance
   - Integration in firewall
   - Integration into host
+
+## Encryption
+
+### Symmetric Encryption
+
+**Alice**:
+
+1. Creates message
+2. Chooses key
+3. Computes cyphertext
+4. Send cyphertext to Bob
+
+**Eve** (Attacker):
+
+1. Copies cyphertext
+2. Tries to guess the key
+
+**Bob**:
+
+1. Receives cyphertext
+2. Uses key
+3. Computes plaintext
+4. Reads message
+
+### Kerckhoffs' Principle
+
+- From "La Cryptographie Militaire"
+- Most important point: **The security of a crypto system must lie in the non-disclosure of the key but not in the non-disclosure of the algorithm**
+- Implementation
+  - Keep secret which function you used for encryption
+  - But a disclosure of the set of functions should not create a problem
+
+### Strong Algorithms
+
+- There is no attack that can break it with less effort than a brute force attack ("complete enumeration")
+- There are so many keys that a complete search of key space is infeasable
+
+### Crypto Attack Classes
+
+- **Active** attacks
+  - Most relevant for cryptographic protocols
+  - Active interference (modification, insertion or deletion of messages)
+  - Man in the middle (MITM) can receive messages and modify them on the way to the receiver
+- **Passive** attacks: Pure eavesdropping, without interference with communication
+
+### Perfect Security
+
+Cyphertext does not give any information you don't already have about the plaintext
+
+### One-Time-Pad
+
+- **Vernam Cypher**: Create ciphertext by XOR addition of secret key and plaintext
+- **Mauborgne**: Random key, never re-use key ("one time")
+- **Shannon**: OTP is unbreakable if key is ...
+  - Truly random
+  - As large
+  - Never reused
+  - Kept secret
+
+### Stream Ciphers
+
+Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a **Crytographically Secure Pseudo-Random Number Generator (CSPRNG)**)
+
+### Cryptographically Secure Pseudo-Random Number Generators (CSPRNG)
+
+A CSPRNG must ...
+
+- Be unpredictable
+- Be computationally infeasible to compute the next outputs
+
+... when the initial state of the CSPRNG is not known
+
+### Design Principles for Block Ciphers
+
+Two methods for frustrating a statistical analysis:
+
+- **Confusion**: The ciphertext should depend on the plaintext in such a complicated way that an attacker cannot gain any information from the ciphertext (redundancy should not be visible anymore in the ciphertext)
+- **Diffusion**: Each plaintext and key bit should influence as many ciphertext bits as possible
+  - Changing one bit in plaintext → Many pseudo-random changes in cyphertext
+  - Changing one bit in the key → Many pseudo-random changes in cyphertext
