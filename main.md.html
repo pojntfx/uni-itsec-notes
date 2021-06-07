@@ -476,3 +476,97 @@
 <li>Changing one bit in the key → Many pseudo-random changes in cyphertext</li>
 </ul></li>
 </ul>
+<h3 id="feistel-networks">Feistel Networks</h3>
+<ul>
+<li>Described by Horst Feistel</li>
+<li>Algorithm
+<ul>
+<li>Plaintext block B is divided in 2 halves</li>
+<li>Derive r round key keys from key</li>
+<li>Feed one half through round function F</li>
+<li>Then XOR the result with the other half</li>
+<li>Exchange halves</li>
+</ul></li>
+<li>Repeat r times</li>
+</ul>
+<h3 id="des-tripple-des">DES (Tripple DES)</h3>
+<ul>
+<li>Single DES breakable in less than 24h (complete search of key space)</li>
+<li>Tripple DES is still secure</li>
+<li>Three steps of DES on each data block using up to three keys</li>
+<li>Decryption in reverse sequence</li>
+<li>3 independend keys are the most secure</li>
+<li>Three same keys can be used for (insecure) DES compatibility</li>
+</ul>
+<h3 id="aes-key-features">AES Key Features</h3>
+<ul>
+<li>FIPS standard 197</li>
+<li>Key length: 128/192/256 bit</li>
+<li>Block size: 128 bit</li>
+<li>Iterative rounds of substitutions and permutation, but no Feistel structure</li>
+<li>10, 12 or 14 rounds</li>
+<li>Blocks of 16 bytes arranged in 4x4 state matrix</li>
+<li>Components of the round function are invertible and independent of key
+<ul>
+<li><strong>Substitute Bytes</strong>: Non-linear substitution of bytes in state</li>
+<li><strong>Shift Rows</strong>: Cyclic shifting of rows</li>
+<li><strong>Min Columns</strong>: Multiplication of state elements with a fixed 4x4 matrix M</li>
+</ul></li>
+</ul>
+<h3 id="modes-of-operation-for-block-ciphers">Modes of Operation for Block Ciphers</h3>
+<ul>
+<li>Objective: Encrypt multiple plaintext blocks with the same block cipher</li>
+<li>Straightforward solution: blockwise encryption (“Electronic Codebook Mode”)</li>
+<li>Problem: Patterns in the distribution of plaintext blocks remain visible</li>
+</ul>
+<h3 id="cipher-block-chaining-cbc">Cipher Block Chaining (CBC)</h3>
+<ul>
+<li>Avoids telltale patterns in ciphertext</li>
+<li>Decryption fails if a data block is missing or corrupted</li>
+<li>Each data block is encrypted in relation to the previous block</li>
+</ul>
+<h3 id="counter-mode-ctr">Counter Mode (CTR)</h3>
+<ul>
+<li>Simple and efficient</li>
+<li>Random access still possible</li>
+<li>No issues if data block is missing</li>
+<li>Incrementing counter is involved in randomization per data block</li>
+</ul>
+<h3 id="padding">Padding</h3>
+<ul>
+<li>Plaintext needs to be a full number of blocks</li>
+<li>If plaintext does not fill the last block completely, it must be padded before encryption
+<ul>
+<li>In order to facilitate safe decryption, the last block is always padded: For example for a block size of n bytes, there are 1…n bytes added to the plaintext before encryption</li>
+<li>Decryption can check last bytes and strip them off correspondingly</li>
+</ul></li>
+<li>Always need to pad with at least one byte!</li>
+<li>Common methods
+<ul>
+<li>Pad with bytes of the same value as the number of padding bytes (PKCS#5; i.e. if there are three bytes to be padded, add <code>0x03 0x03 0x03</code>)</li>
+<li>Pad with <code>0x80</code> followed by <code>0x00</code> bytes</li>
+<li>Pad with zeroes except for the last byte that indicates the number of padding bytes</li>
+<li>Pad with zeroes</li>
+<li>Pad with space characters (<code>0x20</code>)</li>
+</ul></li>
+</ul>
+<h3 id="key-length-considerations">Key Length Considerations</h3>
+<ul>
+<li>Cryptography is always a matter of complexity
+<ul>
+<li>With enough time and/or space, all schemes can theoretically be broken</li>
+<li>“brute force” attacks</li>
+<li>Example: 56bit keys DES can be broken in &lt;24h since 1999</li>
+</ul></li>
+<li>Meanwhile
+<ul>
+<li>128bit keys have to be replaced in the coming years</li>
+<li>192bit keys are secure in medium term</li>
+<li>256bit keys are hard to crack due to physical boundaries</li>
+</ul></li>
+<li>Quantum computers might be able to crack keys much more quickly</li>
+<li>Numbers refer to unbroken algorithms in symmetric cryptography
+<ul>
+<li>Broken algorithm is one where an n bit key can be determined trying out significantly less than 2<sup>n</sup> keys</li>
+</ul></li>
+</ul>
