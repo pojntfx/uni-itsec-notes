@@ -426,3 +426,83 @@ Two methods for frustrating a statistical analysis:
 - **Diffusion**: Each plaintext and key bit should influence as many ciphertext bits as possible
   - Changing one bit in plaintext → Many pseudo-random changes in cyphertext
   - Changing one bit in the key → Many pseudo-random changes in cyphertext
+
+### Feistel Networks
+
+- Described by Horst Feistel
+- Algorithm
+  - Plaintext block B is divided in 2 halves
+  - Derive r round key keys from key
+  - Feed one half through round function F
+  - Then XOR the result with the other half
+  - Exchange halves
+- Repeat r times
+
+### DES (Tripple DES)
+
+- Single DES breakable in less than 24h (complete search of key space)
+- Tripple DES is still secure
+- Three steps of DES on each data block using up to three keys
+- Decryption in reverse sequence
+- 3 independend keys are the most secure
+- Three same keys can be used for (insecure) DES compatibility
+
+### AES Key Features
+
+- FIPS standard 197
+- Key length: 128/192/256 bit
+- Block size: 128 bit
+- Iterative rounds of substitutions and permutation, but no Feistel structure
+- 10, 12 or 14 rounds
+- Blocks of 16 bytes arranged in 4x4 state matrix
+- Components of the round function are invertible and independent of key
+  - **Substitute Bytes**: Non-linear substitution of bytes in state
+  - **Shift Rows**: Cyclic shifting of rows
+  - **Min Columns**: Multiplication of state elements with a fixed 4x4 matrix M
+
+### Modes of Operation for Block Ciphers
+
+- Objective: Encrypt multiple plaintext blocks with the same block cipher
+- Straightforward solution: blockwise encryption ("Electronic Codebook Mode")
+- Problem: Patterns in the distribution of plaintext blocks remain visible
+
+### Cipher Block Chaining (CBC)
+
+- Avoids telltale patterns in ciphertext
+- Decryption fails if a data block is missing or corrupted
+- Each data block is encrypted in relation to the previous block
+
+### Counter Mode (CTR)
+
+- Simple and efficient
+- Random access still possible
+- No issues if data block is missing
+- Incrementing counter is involved in randomization per data block
+
+### Padding
+
+- Plaintext needs to be a full number of blocks
+- If plaintext does not fill the last block completely, it must be padded before encryption
+  - In order to facilitate safe decryption, the last block is always padded: For example for a block size of n bytes, there are 1...n bytes added to the plaintext before encryption
+  - Decryption can check last bytes and strip them off correspondingly
+- Always need to pad with at least one byte!
+- Common methods
+  - Pad with bytes of the same value as the number of padding bytes (PKCS#5; i.e. if there are three bytes to be padded, add `0x03 0x03 0x03`)
+  - Pad with `0x80` followed by `0x00` bytes
+  - Pad with zeroes except for the last byte that indicates the number of padding bytes
+  - Pad with zeroes
+  - Pad with space characters (`0x20`)
+
+### Key Length Considerations
+
+- Cryptography is always a matter of complexity
+  - With enough time and/or space, all schemes can theoretically be broken
+  - "brute force" attacks
+  - Example: 56bit keys DES can be broken in \<24h since 1999
+- Meanwhile
+  - 128bit keys have to be replaced in the coming years
+  - 192bit keys are secure in medium term
+  - 256bit keys are hard to crack due to physical boundaries
+- Quantum computers might be able to crack keys much more quickly
+- Numbers refer to unbroken algorithms in symmetric cryptography
+  - Broken algorithm is one where an n bit key can be determined trying out significantly less than 2^n^ keys
