@@ -403,17 +403,17 @@
 <ol type="1">
 <li>Creates message</li>
 <li>Chooses key</li>
-<li>Computes cyphertext</li>
-<li>Send cyphertext to Bob</li>
+<li>Computes ciphertext</li>
+<li>Send ciphertext to Bob</li>
 </ol>
 <p><strong>Eve</strong> (Attacker):</p>
 <ol type="1">
-<li>Copies cyphertext</li>
+<li>Copies ciphertext</li>
 <li>Tries to guess the key</li>
 </ol>
 <p><strong>Bob</strong>:</p>
 <ol type="1">
-<li>Receives cyphertext</li>
+<li>Receives ciphertext</li>
 <li>Uses key</li>
 <li>Computes plaintext</li>
 <li>Reads message</li>
@@ -444,7 +444,7 @@
 <li><strong>Passive</strong> attacks: Pure eavesdropping, without interference with communication</li>
 </ul>
 <h3 id="perfect-security">Perfect Security</h3>
-<p>Cyphertext does not give any information you don’t already have about the plaintext</p>
+<p>Ciphertext does not give any information you don’t already have about the plaintext</p>
 <h3 id="one-time-pad">One-Time-Pad</h3>
 <ul>
 <li><strong>Vernam Cypher</strong>: Create ciphertext by XOR addition of secret key and plaintext</li>
@@ -457,7 +457,7 @@
 <li>Kept secret</li>
 </ul></li>
 </ul>
-<h3 id="stream-ciphers">Stream Ciphers</h3>
+<h3 id="stream-cyphers">Stream Cyphers</h3>
 <p>Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a <strong>Crytographically Secure Pseudo-Random Number Generator (CSPRNG)</strong>)</p>
 <h3 id="cryptographically-secure-pseudo-random-number-generators-csprng">Cryptographically Secure Pseudo-Random Number Generators (CSPRNG)</h3>
 <p>A CSPRNG must …</p>
@@ -466,14 +466,14 @@
 <li>Be computationally infeasible to compute the next outputs</li>
 </ul>
 <p>… when the initial state of the CSPRNG is not known</p>
-<h3 id="design-principles-for-block-ciphers">Design Principles for Block Ciphers</h3>
+<h3 id="design-principles-for-block-cyphers">Design Principles for Block Cyphers</h3>
 <p>Two methods for frustrating a statistical analysis:</p>
 <ul>
 <li><strong>Confusion</strong>: The ciphertext should depend on the plaintext in such a complicated way that an attacker cannot gain any information from the ciphertext (redundancy should not be visible anymore in the ciphertext)</li>
 <li><strong>Diffusion</strong>: Each plaintext and key bit should influence as many ciphertext bits as possible
 <ul>
-<li>Changing one bit in plaintext → Many pseudo-random changes in cyphertext</li>
-<li>Changing one bit in the key → Many pseudo-random changes in cyphertext</li>
+<li>Changing one bit in plaintext → Many pseudo-random changes in ciphertext</li>
+<li>Changing one bit in the key → Many pseudo-random changes in ciphertext</li>
 </ul></li>
 </ul>
 <h3 id="feistel-networks">Feistel Networks</h3>
@@ -513,13 +513,13 @@
 <li><strong>Min Columns</strong>: Multiplication of state elements with a fixed 4x4 matrix M</li>
 </ul></li>
 </ul>
-<h3 id="modes-of-operation-for-block-ciphers">Modes of Operation for Block Ciphers</h3>
+<h3 id="modes-of-operation-for-block-cyphers">Modes of Operation for Block Cyphers</h3>
 <ul>
-<li>Objective: Encrypt multiple plaintext blocks with the same block cipher</li>
+<li>Objective: Encrypt multiple plaintext blocks with the same block cypher</li>
 <li>Straightforward solution: blockwise encryption (“Electronic Codebook Mode”)</li>
 <li>Problem: Patterns in the distribution of plaintext blocks remain visible</li>
 </ul>
-<h3 id="cipher-block-chaining-cbc">Cipher Block Chaining (CBC)</h3>
+<h3 id="cypher-block-chaining-cbc">Cypher Block Chaining (CBC)</h3>
 <ul>
 <li>Avoids telltale patterns in ciphertext</li>
 <li>Decryption fails if a data block is missing or corrupted</li>
@@ -568,5 +568,72 @@
 <li>Numbers refer to unbroken algorithms in symmetric cryptography
 <ul>
 <li>Broken algorithm is one where an n bit key can be determined trying out significantly less than 2<sup>n</sup> keys</li>
+</ul></li>
+</ul>
+<h2 id="message-authentication">Message Authentication</h2>
+<h3 id="message-authentication-codes-macs">Message Authentication Codes (MACs)</h3>
+<ul>
+<li>Objectives
+<ul>
+<li><strong>Integrity protection</strong>: Prevent unauthorized manipulation of data</li>
+<li><strong>Message authentication</strong>: Prevent unauthorized origination on behalf of others</li>
+</ul></li>
+<li>Idea: Compute a cryptographic chesum (MAC)</li>
+<li>Required Properties
+<ul>
+<li>Cannot be counterfeited; without having the sender’s secret, it is to complex to …
+<ul>
+<li>Find another message matching the same MAC</li>
+<li>Construct a suitable MAC for another message</li>
+</ul></li>
+<li>Even smallest changes to message cause a big change of the MAC</li>
+</ul></li>
+</ul>
+<h3 id="general-scenario">General Scenario</h3>
+<p><strong>Alice</strong>:</p>
+<ol type="1">
+<li><code>m = "I love you. Alice"</code></li>
+<li>Select secret key <span class="math inline"><em>K</em></span></li>
+<li>Compute <span class="math inline"><em>M</em><em>A</em><em>C</em><sub><em>K</em></sub>(<em>m</em>)</span></li>
+</ol>
+<p><strong>Bob</strong>:</p>
+<ol type="1">
+<li>Receives <code>m'</code></li>
+<li>Selects secret key <span class="math inline"><em>K</em></span></li>
+<li>Computes <span class="math inline"><em>M</em><em>A</em><em>C</em><sub><em>K</em></sub>(<em>m</em>′)</span></li>
+<li>Compares computed MAC with received MAC → Matches!</li>
+</ol>
+<p><strong>Assertion</strong>: If computed MAC equals the MAC included in the received message, an owner of the key (Alice) really sent this message and it was not changed on the way.</p>
+<h3 id="scenario-with-modified-message">Scenario with Modified Message</h3>
+<p><strong>Alice</strong>: Same as in <a href="#general-scenario">General Scenario</a></p>
+<p><strong>Mallory</strong>:</p>
+<ul>
+<li><code>m = "It's all over! Alice."</code></li>
+</ul>
+<p><strong>Bob</strong></p>
+<ol type="1">
+<li>Receives <code>m'</code></li>
+<li>Selects secret key <span class="math inline"><em>K</em></span></li>
+<li>Computes <span class="math inline"><em>M</em><em>A</em><em>C</em><sub><em>K</em></sub>(<em>m</em>′)</span></li>
+<li>Compares computed MAC with received MAC → Doesn’t match!</li>
+<li>Ignore <code>m</code></li>
+</ol>
+<h3 id="mac-computation">MAC Computation</h3>
+<ul>
+<li>Requirements
+<ul>
+<li>Shared key k between sender and receiver</li>
+<li>Hash function to create a code that changes if the message has been altered</li>
+</ul></li>
+<li>Using <strong>block cypher</strong> <span class="math inline"><em>f</em><sub><em>k</em></sub></span> and <strong>hash function</strong> <span class="math inline"><em>h</em><em>a</em><em>s</em><em>h</em></span>: <span class="math inline"><em>M</em><em>A</em><em>C</em>(<em>m</em>) = <em>f</em><sub><em>k</em></sub>(<em>h</em><em>a</em><em>s</em><em>h</em>(<em>m</em>))</span></li>
+<li>Using a <strong>key dependent cryptographic hash function</strong> <span class="math inline"><em>h</em><em>a</em><em>s</em><em>h</em>(<em>k</em>,<em>m</em>)</span>: <span class="math inline"><em>M</em><em>A</em><em>C</em>(<em>m</em>) = <em>h</em><em>a</em><em>s</em><em>h</em>(<em>k</em>,<em>m</em>)</span></li>
+</ul>
+<h3 id="hash-function-requirements">Hash Function Requirements</h3>
+<ul>
+<li>Weak <strong>collision resistance</strong>: For a given message and hash it is impossible/to complex to find another message such that the hashes match</li>
+<li><strong>One-way</strong> property
+<ul>
+<li>Easy to compute hash</li>
+<li>Impossible to find message from hash</li>
 </ul></li>
 </ul>
