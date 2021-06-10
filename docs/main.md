@@ -355,17 +355,17 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
 
 1. Creates message
 2. Chooses key
-3. Computes cyphertext
-4. Send cyphertext to Bob
+3. Computes ciphertext
+4. Send ciphertext to Bob
 
 **Eve** (Attacker):
 
-1. Copies cyphertext
+1. Copies ciphertext
 2. Tries to guess the key
 
 **Bob**:
 
-1. Receives cyphertext
+1. Receives ciphertext
 2. Uses key
 3. Computes plaintext
 4. Reads message
@@ -393,7 +393,7 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
 
 ### Perfect Security
 
-Cyphertext does not give any information you don't already have about the plaintext
+Ciphertext does not give any information you don't already have about the plaintext
 
 ### One-Time-Pad
 
@@ -405,7 +405,7 @@ Cyphertext does not give any information you don't already have about the plaint
   - Never reused
   - Kept secret
 
-### Stream Ciphers
+### Stream Cyphers
 
 Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a **Crytographically Secure Pseudo-Random Number Generator (CSPRNG)**)
 
@@ -418,14 +418,14 @@ A CSPRNG must ...
 
 ... when the initial state of the CSPRNG is not known
 
-### Design Principles for Block Ciphers
+### Design Principles for Block Cyphers
 
 Two methods for frustrating a statistical analysis:
 
 - **Confusion**: The ciphertext should depend on the plaintext in such a complicated way that an attacker cannot gain any information from the ciphertext (redundancy should not be visible anymore in the ciphertext)
 - **Diffusion**: Each plaintext and key bit should influence as many ciphertext bits as possible
-  - Changing one bit in plaintext → Many pseudo-random changes in cyphertext
-  - Changing one bit in the key → Many pseudo-random changes in cyphertext
+  - Changing one bit in plaintext → Many pseudo-random changes in ciphertext
+  - Changing one bit in the key → Many pseudo-random changes in ciphertext
 
 ### Feistel Networks
 
@@ -460,13 +460,13 @@ Two methods for frustrating a statistical analysis:
   - **Shift Rows**: Cyclic shifting of rows
   - **Min Columns**: Multiplication of state elements with a fixed 4x4 matrix M
 
-### Modes of Operation for Block Ciphers
+### Modes of Operation for Block Cyphers
 
-- Objective: Encrypt multiple plaintext blocks with the same block cipher
+- Objective: Encrypt multiple plaintext blocks with the same block cypher
 - Straightforward solution: blockwise encryption ("Electronic Codebook Mode")
 - Problem: Patterns in the distribution of plaintext blocks remain visible
 
-### Cipher Block Chaining (CBC)
+### Cypher Block Chaining (CBC)
 
 - Avoids telltale patterns in ciphertext
 - Decryption fails if a data block is missing or corrupted
@@ -506,3 +506,65 @@ Two methods for frustrating a statistical analysis:
 - Quantum computers might be able to crack keys much more quickly
 - Numbers refer to unbroken algorithms in symmetric cryptography
   - Broken algorithm is one where an n bit key can be determined trying out significantly less than 2^n^ keys
+
+## Message Authentication
+
+### Message Authentication Codes (MACs)
+
+- Objectives
+  - **Integrity protection**: Prevent unauthorized manipulation of data
+  - **Message authentication**: Prevent unauthorized origination on behalf of others
+- Idea: Compute a cryptographic chesum (MAC)
+- Required Properties
+  - Cannot be counterfeited; without having the sender's secret, it is to complex to ...
+    - Find another message matching the same MAC
+    - Construct a suitable MAC for another message
+  - Even smallest changes to message cause a big change of the MAC
+
+### General Scenario
+
+**Alice**:
+
+1. `m = "I love you. Alice"`
+2. Select secret key $K$
+3. Compute $MAC_K(m)$
+
+**Bob**:
+
+1. Receives `m'`
+2. Selects secret key $K$
+3. Computes $MAC_K(m')$
+4. Compares computed MAC with received MAC → Matches!
+
+**Assertion**: If computed MAC equals the MAC included in the received message, an owner of the key (Alice) really sent this message and it was not changed on the way.
+
+### Scenario with Modified Message
+
+**Alice**: Same as in [General Scenario](#general-scenario)
+
+**Mallory**:
+
+- `m = "It's all over! Alice."`
+
+**Bob**
+
+1. Receives `m'`
+2. Selects secret key $K$
+3. Computes $MAC_K(m')$
+4. Compares computed MAC with received MAC → Doesn't match!
+5. Ignore `m`
+
+### MAC Computation
+
+- Requirements
+  - Shared key k between sender and receiver
+  - Hash function to create a code that changes if the message has been altered
+- Using **block cypher** $f_k$ and **hash function** $hash$: $MAC(m)=f_k(hash(m))$
+- Using a **key dependent cryptographic hash function** $hash(k,m)$: $MAC(m)=hash(k,m)$
+
+### Hash Function Requirements
+
+- Weak **collision resistance**: For a given message and hash it is impossible/to complex to find another message such that the hashes match
+- **One-way** property
+  - Easy to compute hash
+  - Impossible to find message from hash
