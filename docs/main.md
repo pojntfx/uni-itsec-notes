@@ -347,9 +347,9 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
   - Integration in firewall
   - Integration into host
 
-## Encryption
+## Symmetric Encryption
 
-### Symmetric Encryption
+### Symmetric Encryption Overview
 
 **Alice**:
 
@@ -568,3 +568,58 @@ Two methods for frustrating a statistical analysis:
 - **One-way** property
   - Easy to compute hash
   - Impossible to find message from hash
+
+## Asymmetric Encryption
+
+### Public Key Cryptography
+
+**Alice**:
+
+1. Generates key pair $(PK_{Alice},SK_{Alice})$
+2. Published $PK_{Alice}$ at Trent's
+3. $c$ received → decrypts $m=D_{SK_{Alice}}(C)$
+
+**Trent**:
+
+- Stores public keys
+- Provides public keys on request
+
+**Bob**:
+
+1. Wants to send $m$ to Alice confidentially
+2. Obtains $PK_{Alice}$ from Trent
+3. Computes $c=E_{PK_{Alice}}(m)$
+4. Sends $c$ to Alice
+
+### RSA Key Generation
+
+1. Alice chooses 2 large prime numbers $p, q$ and computes $n=p \cdot q$, $\phi(n)=(p-1)(q-1)$
+2. Alice chooses an integer $e$ with $1<e<\phi(n)$ that is relatively prime to $\phi(n)$
+3. Alice computes an integer $d$ with $1<d<\phi(n)$ and $d \cdot e = k \cdot \phi(n) + 1$
+4. Alice publishes her public key $PK_{Alice}=(e,)$
+5. Alice keeps her private key $SK_{Alice}=d$ and $p$, $q$, $\phi(n)$ secret
+
+### RSA Encryption
+
+1. Bob obtains $PK_{Alice}=(e,n)$
+2. Bob composes plaintext $m \in M=\{1,2,...,n-1\}$
+3. Bob computes the ciphertext $c=E_{PK{Alice}}(m)=m^e\mod n$
+4. Bob sends $c$ to Alice
+
+### RSA Decryption
+
+Alice can obtain the plaintext message $m$ by computing $m=D_{SK_{Alice}}(c)=c^d\mod n = m^{ed} \mod n$
+
+### RSA Security
+
+- **RSA problem**: Given $e$, $n$ and $c = m^e \mod n$, find $m$
+  - Most efficient approach to solve the RSA problem is currently the integer factorization of $n$: An upper limit to the complexity of the problem; can be used to derive the private key from the prime factors
+  - Quantum computers will be more efficient in doing integer factorization (Shor's algorithm)
+  - RSA problem and integer factorization still lack mathematical proof for their complexity
+- **Organizational properties**
+  - **Authenticity** of the public key $(e,n)$
+  - **Confidentiality** of the secret key $(d,p,q)$
+- **Mathematical properties**
+  - **Complexity of factoring** the modulus $n$
+  - **Complexity of solving** the RSA problem
+- Failure of any properties will compromise the security of the method!
