@@ -397,8 +397,8 @@
 <li>Integration into host</li>
 </ul></li>
 </ul>
-<h2 id="encryption">Encryption</h2>
-<h3 id="symmetric-encryption">Symmetric Encryption</h3>
+<h2 id="symmetric-encryption">Symmetric Encryption</h2>
+<h3 id="symmetric-encryption-overview">Symmetric Encryption Overview</h3>
 <p><strong>Alice</strong>:</p>
 <ol type="1">
 <li>Creates message</li>
@@ -636,4 +636,61 @@
 <li>Easy to compute hash</li>
 <li>Impossible to find message from hash</li>
 </ul></li>
+</ul>
+<h2 id="asymmetric-encryption">Asymmetric Encryption</h2>
+<h3 id="public-key-cryptography">Public Key Cryptography</h3>
+<p><strong>Alice</strong>:</p>
+<ol type="1">
+<li>Generates key pair <span class="math inline">(<em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>,<em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>)</span></li>
+<li>Published <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> at Trent’s</li>
+<li><span class="math inline"><em>c</em></span> received → decrypts <span class="math inline"><em>m</em> = <em>D</em><sub><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>C</em>)</span></li>
+</ol>
+<p><strong>Trent</strong>:</p>
+<ul>
+<li>Stores public keys</li>
+<li>Provides public keys on request</li>
+</ul>
+<p><strong>Bob</strong>:</p>
+<ol type="1">
+<li>Wants to send <span class="math inline"><em>m</em></span> to Alice confidentially</li>
+<li>Obtains <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> from Trent</li>
+<li>Computes <span class="math inline"><em>c</em> = <em>E</em><sub><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>m</em>)</span></li>
+<li>Sends <span class="math inline"><em>c</em></span> to Alice</li>
+</ol>
+<h3 id="rsa-key-generation">RSA Key Generation</h3>
+<ol type="1">
+<li>Alice chooses 2 large prime numbers <span class="math inline"><em>p</em>, <em>q</em></span> and computes <span class="math inline"><em>n</em> = <em>p</em> ⋅ <em>q</em></span>, <span class="math inline"><em>ϕ</em>(<em>n</em>) = (<em>p</em>−1)(<em>q</em>−1)</span></li>
+<li>Alice chooses an integer <span class="math inline"><em>e</em></span> with <span class="math inline">1 &lt; <em>e</em> &lt; <em>ϕ</em>(<em>n</em>)</span> that is relatively prime to <span class="math inline"><em>ϕ</em>(<em>n</em>)</span></li>
+<li>Alice computes an integer <span class="math inline"><em>d</em></span> with <span class="math inline">1 &lt; <em>d</em> &lt; <em>ϕ</em>(<em>n</em>)</span> and <span class="math inline"><em>d</em> ⋅ <em>e</em> = <em>k</em> ⋅ <em>ϕ</em>(<em>n</em>) + 1</span></li>
+<li>Alice publishes her public key <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = (<em>e</em>,)</span></li>
+<li>Alice keeps her private key <span class="math inline"><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = <em>d</em></span> and <span class="math inline"><em>p</em></span>, <span class="math inline"><em>q</em></span>, <span class="math inline"><em>ϕ</em>(<em>n</em>)</span> secret</li>
+</ol>
+<h3 id="rsa-encryption">RSA Encryption</h3>
+<ol type="1">
+<li>Bob obtains <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = (<em>e</em>,<em>n</em>)</span></li>
+<li>Bob composes plaintext <span class="math inline"><em>m</em> ∈ <em>M</em> = {1, 2, ..., <em>n</em> − 1}</span></li>
+<li>Bob computes the ciphertext <span class="math inline"><em>c</em> = <em>E</em><sub><em>P</em><em>K</em><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>(<em>m</em>) = <em>m</em><sup><em>e</em></sup> mod  <em>n</em></span></li>
+<li>Bob sends <span class="math inline"><em>c</em></span> to Alice</li>
+</ol>
+<h3 id="rsa-decryption">RSA Decryption</h3>
+<p>Alice can obtain the plaintext message <span class="math inline"><em>m</em></span> by computing <span class="math inline"><em>m</em> = <em>D</em><sub><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>c</em>) = <em>c</em><sup><em>d</em></sup> mod  <em>n</em> = <em>m</em><sup><em>e</em><em>d</em></sup> mod  <em>n</em></span></p>
+<h3 id="rsa-security">RSA Security</h3>
+<ul>
+<li><strong>RSA problem</strong>: Given <span class="math inline"><em>e</em></span>, <span class="math inline"><em>n</em></span> and <span class="math inline"><em>c</em> = <em>m</em><sup><em>e</em></sup> mod  <em>n</em></span>, find <span class="math inline"><em>m</em></span>
+<ul>
+<li>Most efficient approach to solve the RSA problem is currently the integer factorization of <span class="math inline"><em>n</em></span>: An upper limit to the complexity of the problem; can be used to derive the private key from the prime factors</li>
+<li>Quantum computers will be more efficient in doing integer factorization (Shor’s algorithm)</li>
+<li>RSA problem and integer factorization still lack mathematical proof for their complexity</li>
+</ul></li>
+<li><strong>Organizational properties</strong>
+<ul>
+<li><strong>Authenticity</strong> of the public key <span class="math inline">(<em>e</em>,<em>n</em>)</span></li>
+<li><strong>Confidentiality</strong> of the secret key <span class="math inline">(<em>d</em>,<em>p</em>,<em>q</em>)</span></li>
+</ul></li>
+<li><strong>Mathematical properties</strong>
+<ul>
+<li><strong>Complexity of factoring</strong> the modulus <span class="math inline"><em>n</em></span></li>
+<li><strong>Complexity of solving</strong> the RSA problem</li>
+</ul></li>
+<li>Failure of any properties will compromise the security of the method!</li>
 </ul>
