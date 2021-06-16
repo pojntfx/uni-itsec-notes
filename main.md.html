@@ -734,3 +734,73 @@
 <li><strong>NP</strong>: Answer of problem cannot be found in polynomial time (<span class="math inline"><em>b</em></span> bits of problem size → algorithm takes time <span class="math inline"><em>k</em><sup><em>b</em></sup></span>), but the correctness of given answer can be checked in polynomial time</li>
 </ul></li>
 </ul>
+<h3 id="diffie-hellman-key-exchange-protocol">Diffie-Hellman Key Exchange Protocol</h3>
+<p><strong>Purpose</strong>: Allow communication partners without prior knowledge of another to establish a shared secret key over an insecure communication channel</p>
+<ol type="1">
+<li>Alice and Bob agree publicly on prime number <span class="math inline"><em>p</em></span> and a primitive element <span class="math inline"><em>g</em> ≤ <em>p</em> − 1</span></li>
+<li>Alice randomly chooses <span class="math inline"><em>α</em> ∈ {2, ..., <em>p</em> − 2}</span> and computes <span class="math inline"><em>A</em> = <em>g</em><sup><em>α</em></sup> mod  <em>p</em></span></li>
+<li>Bob randomly chooses <span class="math inline"><em>β</em> ∈ {2, ..., <em>p</em> − 2}</span> and computes <span class="math inline"><em>B</em> = <em>g</em><sup><em>β</em></sup> mod  <em>p</em></span></li>
+<li>Alice and Bob publicly exchange A and B</li>
+<li>Alice and Bob hold a common secret key <span class="math inline"><em>K</em></span>:
+<ol type="1">
+<li><span class="math inline"><em>K</em><sub><em>B</em></sub> = <em>A</em><sup><em>β</em></sup> mod  <em>p</em> = <em>g</em><sup><em>α</em><em>β</em></sup> mod  <em>p</em></span></li>
+<li><span class="math inline"><em>K</em><sub><em>A</em></sub> = <em>B</em><sup><em>α</em></sup> mod  <em>p</em> = <em>g</em><sup><em>α</em><em>β</em></sup> mod  <em>p</em> = <em>K</em><sub><em>B</em></sub></span></li>
+</ol></li>
+</ol>
+<h3 id="diffie-hellman-key-exchange-protocol-security">Diffie-Hellman Key Exchange Protocol Security</h3>
+<p>It depends on three properties which can’t be relaxed:</p>
+<ul>
+<li><strong>Discrete logarithm problem</strong>: There is no efficient inversion for integer exponentiation</li>
+<li><strong>Authenticity</strong> of exchanged messages: No protection against MITM attacks!</li>
+<li><strong>Diffie-Hellman problem complexity</strong>: Given <span class="math inline"><em>g</em>, <em>p</em>, <em>A</em> = <em>g</em><sup><em>x</em></sup> mod  <em>p</em>, <em>B</em> = <em>g</em><sup><em>y</em></sup> mod  <em>p</em></span> find <span class="math inline"><em>K</em> = <em>g</em><sup><em>x</em><em>y</em></sup> mod  <em>p</em></span></li>
+</ul>
+<h3 id="digital-signatures">Digital Signatures</h3>
+<ul>
+<li>Requirements
+<ul>
+<li><strong>Tamper-proof</strong></li>
+<li><strong>Unambiguous attribution</strong> of signature to signing person/identity</li>
+<li><strong>Inseparable connection</strong> between signature and signed document</li>
+<li><strong>Non-repudiability</strong> of signature</li>
+</ul></li>
+<li>Typical approach
+<ul>
+<li>Encrypt hash of document with secret key</li>
+<li>Signature can be verified using the public key</li>
+</ul></li>
+</ul>
+<p><strong>Alice</strong>:</p>
+<ol type="1">
+<li>Generates key pair <span class="math inline">(<em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>,<em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>)</span></li>
+<li>Publishes <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> at Trent’s</li>
+<li>Computes <span class="math inline"><em>s</em><em>i</em><em>g</em><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em>(<em>m</em>) = <em>E</em><sub><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>h</em><em>a</em><em>s</em><em>h</em>(<em>m</em>))</span></li>
+</ol>
+<p><strong>Trent</strong>:</p>
+<ul>
+<li>Stores public keys</li>
+<li>Provides public keys on request</li>
+</ul>
+<p><strong>Bob</strong>:</p>
+<ol type="1">
+<li>Obtains <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> from Trent</li>
+<li>Computes <span class="math inline"><em>h</em><em>a</em><em>s</em><em>h</em>(<em>m</em><sub><em>r</em><em>e</em><em>c</em><em>e</em><em>i</em><em>v</em><em>e</em><em>d</em></sub>)</span></li>
+<li>Decrypts signature <span class="math inline"><em>D</em><sub><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>s</em><em>i</em><em>g</em><sub><em>r</em><em>e</em><em>c</em><em>e</em><em>i</em><em>v</em><em>e</em><em>d</em></sub>)</span></li>
+<li>Compares <span class="math inline"><em>h</em><em>a</em><em>s</em><em>h</em>(<em>m</em><sub><em>r</em><em>e</em><em>c</em><em>e</em><em>i</em><em>v</em><em>e</em><em>d</em></sub>)</span> to the received signed hash</li>
+</ol>
+<h3 id="rsa-signatures">RSA Signatures</h3>
+<ul>
+<li>Conventions
+<ul>
+<li><span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = (<em>e</em>,<em>n</em>)</span></li>
+<li><span class="math inline"><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = <em>d</em></span></li>
+<li><span class="math inline"><em>m</em></span> is the message to be signed</li>
+<li><span class="math inline"><em>h</em></span> is the secure hash function</li>
+</ul></li>
+<li><strong>Computation</strong> of signature: <span class="math inline"><em>s</em><em>i</em><em>g</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>(<em>m</em>) = (<em>h</em>(<em>m</em>))<sup><em>d</em></sup> mod  <em>n</em></span></li>
+<li><strong>Verification</strong> of signature
+<ul>
+<li>Bob receives <span class="math inline">(<em>m</em>′,<em>s</em><em>i</em><em>g</em>′)</span></li>
+<li>Bob computes <span class="math inline"><em>h</em>(<em>m</em>′)</span> and <span class="math inline">(<em>s</em><em>i</em><em>g</em>′)<sup><em>e</em></sup> mod  <em>n</em></span></li>
+<li>If both match, the signature is verified</li>
+</ul></li>
+</ul>
