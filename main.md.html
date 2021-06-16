@@ -694,3 +694,43 @@
 </ul></li>
 <li>Failure of any properties will compromise the security of the method!</li>
 </ul>
+<h3 id="hybrid-method">Hybrid Method</h3>
+<p>Combination of asymmetric and symmetric key methods.</p>
+<p><strong>Alice</strong>:</p>
+<ol type="1">
+<li>Generates key pair <span class="math inline">(<em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>,<em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub>)</span></li>
+<li>Publishes <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> at Trent’s</li>
+<li><span class="math inline"><em>c</em></span> received → Decrypts <span class="math inline"><em>K</em> = <em>D</em><sub><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>c</em>)</span></li>
+<li>Alice and bob switch over to the symmetric key algorithm with key <span class="math inline"><em>K</em></span></li>
+</ol>
+<p><strong>Trent</strong>:</p>
+<ul>
+<li>Stores public keys</li>
+<li>Provides public keys on request</li>
+</ul>
+<p><strong>Bob</strong>:</p>
+<ol type="1">
+<li>Obtains <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></span> from Trent</li>
+<li>Generates symmetric key <span class="math inline"><em>K</em></span></li>
+<li>Computes <span class="math inline"><em>c</em> = <em>E</em><sub><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>K</em>)</span></li>
+<li>Sends <span class="math inline"><em>c</em></span> to Alice</li>
+</ol>
+<h3 id="discrete-logarithms">Discrete Logarithms</h3>
+<p><strong>Primitive element</strong>: Let <span class="math inline"><em>p</em></span> be a prime number. An element <span class="math inline"><em>g</em> ≤ <em>p</em> − 1</span> is called primitive element <span class="math inline"> mod  <em>p</em></span> if for each <span class="math inline"><em>A</em> ∈ {1, 2, ..., <em>p</em> − 1}</span> there is an <span class="math inline"><em>x</em></span> such that <span class="math inline"><em>A</em> = <em>g</em><sup><em>x</em></sup> mod  <em>p</em></span></p>
+<p><strong>Discrete logarithm</strong>: Let <span class="math inline"><em>p</em></span> be a prime number and let <span class="math inline"><em>g</em> ≤ <em>p</em> − 1</span> be a primitive element <span class="math inline"> mod  <em>p</em></span>. Then an element <span class="math inline"><em>x</em></span> is called discrete logarithm of <span class="math inline"><em>A</em></span> to base <span class="math inline"><em>g</em> mod  <em>p</em></span> if <span class="math inline"><em>A</em> = <em>g</em><sup><em>x</em></sup> mod  <em>p</em></span>.</p>
+<p><strong>Discrete logarithm problem</strong>: Given <span class="math inline"><em>A</em></span>, <span class="math inline"><em>g</em></span>, <span class="math inline"><em>p</em></span>, find <span class="math inline"><em>x</em> ≤ <em>p</em> − 1</span> with <span class="math inline"><em>A</em> = <em>g</em><sup><em>x</em></sup> mod  <em>p</em></span></p>
+<h3 id="one-way-functions">One-Way Functions</h3>
+<ul>
+<li>“Trap-door” functions</li>
+<li>Easy to compute in one direction (i.e. <span class="math inline"><em>f</em>(<em>x</em>) = <em>g</em><sup><em>x</em></sup> mod  <em>p</em></span>)</li>
+<li>Hard to invert
+<ul>
+<li>Ideally only possible using complete enumeration of all possible inputs</li>
+<li>I.e. for a given <span class="math inline"><em>y</em></span> you need to try out all possible values <span class="math inline"><em>x</em> = 0, 1, ..., <em>p</em> − 1</span> to find one <span class="math inline"><em>x</em><sub>0</sub> : <em>f</em>(<em>x</em><sub>0</sub>) = <em>y</em></span></li>
+</ul></li>
+<li>Definition of complexity often of the P and NP complexity classes
+<ul>
+<li><strong>P</strong>: Answer of a problem can be found in polynomial time (<span class="math inline"><em>b</em></span> bits of problem size → algorithm takes time <span class="math inline"><em>b</em><sup><em>k</em></sup></span>)</li>
+<li><strong>NP</strong>: Answer of problem cannot be found in polynomial time (<span class="math inline"><em>b</em></span> bits of problem size → algorithm takes time <span class="math inline"><em>k</em><sup><em>b</em></sup></span>), but the correctness of given answer can be checked in polynomial time</li>
+</ul></li>
+</ul>
