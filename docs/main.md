@@ -665,3 +665,65 @@ Combination of asymmetric and symmetric key methods.
 - Definition of complexity often of the P and NP complexity classes
   - **P**: Answer of a problem can be found in polynomial time ($b$ bits of problem size → algorithm takes time $b^k$)
   - **NP**: Answer of problem cannot be found in polynomial time ($b$ bits of problem size → algorithm takes time $k^b$), but the correctness of given answer can be checked in polynomial time
+
+### Diffie-Hellman Key Exchange Protocol
+
+**Purpose**: Allow communication partners without prior knowledge of another to establish a shared secret key over an insecure communication channel
+
+1. Alice and Bob agree publicly on prime number $p$ and a primitive element $g \leq p-1$
+2. Alice randomly chooses $\alpha \in \{2,...,p-2\}$ and computes $A=g^\alpha \mod p$
+3. Bob randomly chooses $\beta \in \{2,...,p-2\}$ and computes $B=g^\beta \mod p$
+4. Alice and Bob publicly exchange A and B
+5. Alice and Bob hold a common secret key $K$:
+   1. $K_B=A^\beta \mod p=g^{\alpha \beta} \mod p$
+   2. $K_A=B^\alpha \mod p=g^{\alpha \beta} \mod p = K_B$
+
+### Diffie-Hellman Key Exchange Protocol Security
+
+It depends on three properties which can't be relaxed:
+
+- **Discrete logarithm problem**: There is no efficient inversion for integer exponentiation
+- **Authenticity** of exchanged messages: No protection against MITM attacks!
+- **Diffie-Hellman problem complexity**: Given $g, p, A=g^x \mod p, B=g^y \mod p$ find $K=g^{xy} \mod p$
+
+### Digital Signatures
+
+- Requirements
+  - **Tamper-proof**
+  - **Unambiguous attribution** of signature to signing person/identity
+  - **Inseparable connection** between signature and signed document
+  - **Non-repudiability** of signature
+- Typical approach
+  - Encrypt hash of document with secret key
+  - Signature can be verified using the public key
+
+**Alice**:
+
+1. Generates key pair $(PK_{Alice}, SK_{Alice})$
+2. Publishes $PK_{Alice}$ at Trent's
+3. Computes $sigAlice(m)=E_{SK_{Alice}}(hash(m))$
+
+**Trent**:
+
+- Stores public keys
+- Provides public keys on request
+
+**Bob**:
+
+1. Obtains $PK_{Alice}$ from Trent
+2. Computes $hash(m_{received})$
+3. Decrypts signature $D_{PK_{Alice}}(sig_{received})$
+4. Compares $hash(m_{received})$ to the received signed hash
+
+### RSA Signatures
+
+- Conventions
+  - $PK_{Alice}=(e,n)$
+  - $SK_{Alice}=d$
+  - $m$ is the message to be signed
+  - $h$ is the secure hash function
+- **Computation** of signature: $sig_{Alice}(m)=(h(m))^d \mod n$
+- **Verification** of signature
+  - Bob receives $(m', sig')$
+  - Bob computes $h(m')$ and $(sig')^e \mod n$
+  - If both match, the signature is verified
