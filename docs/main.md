@@ -623,3 +623,45 @@ Alice can obtain the plaintext message $m$ by computing $m=D_{SK_{Alice}}(c)=c^d
   - **Complexity of factoring** the modulus $n$
   - **Complexity of solving** the RSA problem
 - Failure of any properties will compromise the security of the method!
+
+### Hybrid Method
+
+Combination of asymmetric and symmetric key methods.
+
+**Alice**:
+
+1. Generates key pair $(PK_{Alice}, SK_{Alice})$
+2. Publishes $PK_{Alice}$ at Trent's
+3. $c$ received → Decrypts $K=D_{SK_{Alice}}(c)$
+4. Alice and bob switch over to the symmetric key algorithm with key $K$
+
+**Trent**:
+
+- Stores public keys
+- Provides public keys on request
+
+**Bob**:
+
+1. Obtains $PK_{Alice}$ from Trent
+2. Generates symmetric key $K$
+3. Computes $c=E_{PK_{Alice}}(K)$
+4. Sends $c$ to Alice
+
+### Discrete Logarithms
+
+**Primitive element**: Let $p$ be a prime number. An element $g\leq p-1$ is called primitive element $\mod p$ if for each $A \in \{1,2,...,p-1\}$ there is an $x$ such that $A=g^x \mod p$
+
+**Discrete logarithm**: Let $p$ be a prime number and let $g \leq p-1$ be a primitive element $\mod p$. Then an element $x$ is called discrete logarithm of $A$ to base $g \mod p$ if $A=g^x \mod p$.
+
+**Discrete logarithm problem**: Given $A$, $g$, $p$, find $x \leq p-1$ with $A=g^x \mod p$
+
+### One-Way Functions
+
+- "Trap-door" functions
+- Easy to compute in one direction (i.e. $f(x)=g^x \mod p$)
+- Hard to invert
+  - Ideally only possible using complete enumeration of all possible inputs
+  - I.e. for a given $y$ you need to try out all possible values $x=0,1,...,p-1$ to find one $x_0:f(x_0)=y$
+- Definition of complexity often of the P and NP complexity classes
+  - **P**: Answer of a problem can be found in polynomial time ($b$ bits of problem size → algorithm takes time $b^k$)
+  - **NP**: Answer of problem cannot be found in polynomial time ($b$ bits of problem size → algorithm takes time $k^b$), but the correctness of given answer can be checked in polynomial time
