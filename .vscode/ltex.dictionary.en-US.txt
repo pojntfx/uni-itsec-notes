@@ -1,2 +1,5 @@
 Pseudonymity
 allowlist
+Diffie-Hellman
+MITM
+Non-repudiability
