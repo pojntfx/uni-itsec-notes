@@ -7,7 +7,7 @@ docs:
 	for document in docs/*.md; do\
 		echo "Compiling $${document} ..." ;\
     	docker run -v "$(PWD):/data:z" pandoc/latex "$${document}" -o "out/$${document}.pdf" & docker run -v "$(PWD):/data:z" pandoc/latex "$${document}" --self-contained -t html5 -o "out/$${document}.html" & docker run -v "$(PWD):/data:z" pandoc/latex "$${document}" --self-contained -t slidy --slide-level 3 -o "out/$${document}.slides.html" & docker run -v "$(PWD):/data:z" pandoc/latex "$${document}" -t beamer --slide-level 3 -o "out/$${document}.slides.pdf";\
-		echo "<li><a href=\"$${document#docs/}.html\">🌐 View $${document#docs/} in your browser</a> (also available as <a href=\"$${document#docs/}.slides.html\">slides</a>) or <a href=\"$${document#docs/}.pdf\">📥 download $${document#docs/} as PDF</a> (also available as <a href=\"$${document#docs/}.slides.pdf\">slides</a>)" >> "out/docs/index.html";\
+		echo "<li><a href=\"$${document#docs/}.html\" target=\"_blank\">🌐 View $${document#docs/} in your browser</a> (also available as <a href=\"$${document#docs/}.slides.html\" target=\"_blank\">slides</a>) or <a href=\"$${document#docs/}.pdf\" target=\"_blank\">📥 download $${document#docs/} as PDF</a> (also available as <a href=\"$${document#docs/}.slides.pdf\" target=\"_blank\">slides</a>)" >> "out/docs/index.html";\
 	done
 	echo "</ul><div><strong><em>$$(sed -n '6 p' docs/metadata.txt)</em></strong></div></main>" >> "out/docs/index.html"
 	mkdir -p "out/release"
