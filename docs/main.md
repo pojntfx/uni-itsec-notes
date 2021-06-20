@@ -401,7 +401,7 @@ Ciphertext does not give any information you don't already have about the plaint
 - **Mauborgne**: Random key, never re-use key ("one time")
 - **Shannon**: OTP is unbreakable if key is ...
   - Truly random
-  - As large
+  - Ciphertext as large as plaintext
   - Never reused
   - Kept secret
 
