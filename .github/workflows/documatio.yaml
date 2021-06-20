@@ -11,10 +11,10 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y pandoc texlive curl
+          sudo apt install -y pandoc texlive-full curl
       - name: Set up documatio
         run: make depend
-      - name: Build with consumatio
+      - name: Build with documatio
         run: make build
       - name: Publish to GitHub releases
         if: ${{ github.ref == 'refs/heads/main' }}
