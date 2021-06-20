@@ -2,7 +2,7 @@
 
 Notes for the IT security course at HdM Stuttgart.
 
-[![documatio CI](https://github.com/pojntfx/uni-itsec-notes/actions/workflows/documatio.yaml/badge.svg)](https://github.com/pojntfx/uni-itsec-notes/actions/workflows/documatio.yaml)
+[![pandoc CI](https://github.com/pojntfx/uni-itsec-notes/actions/workflows/pandoc.yaml/badge.svg)](https://github.com/pojntfx/uni-itsec-notes/actions/workflows/pandoc.yaml)
 
 ## Overview
 
