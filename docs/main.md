@@ -686,6 +686,8 @@ It depends on three properties which can't be relaxed:
 - **Authenticity** of exchanged messages: No protection against MITM attacks!
 - **Diffie-Hellman problem complexity**: Given $g, p, A=g^x \mod p, B=g^y \mod p$ find $K=g^{xy} \mod p$
 
+## Trust
+
 ### Digital Signatures
 
 - Requirements
@@ -727,3 +729,104 @@ It depends on three properties which can't be relaxed:
   - Bob receives $(m', sig')$
   - Bob computes $h(m')$ and $(sig')^e \mod n$
   - If both match, the signature is verified
+
+### Certificates
+
+- A certificate (cert) certifies that a certain public key belongs to a certain identity ("person")
+- Certificates are digitally signed by service providers (Certificate Authorities, CAs) or government agencies (i.e. COVID certs)
+- **X.509**: ITU standard for a common certificate format; contains
+  - Version (v3)
+  - Serial number (unique within the CA)
+  - Signature algorithm
+  - Issuer name (name of the CA)
+  - Time of validity (not before, not after)
+  - Subject name (who the cert is for)
+  - Subject public key info (public key of subject, algorithm of public key)
+  - ID of signature algorithm
+  - Certificate signature algorithm
+  - Certificate signature value (signature of the CA which signs the cert)
+
+## Transport Security
+
+### Internet Model
+
+- 7: Application Layer: HTTP, SMTP, ...
+- Between: TLS, SSH, ...
+- 4: Transport Layer: TCP, UDP, ...
+- 3: Internetwork Layer: IP
+- 2: Data Link Layer: IEEE 802.x
+- 1: Physical Layer: IEEE 802.x
+- (0): Physical transmission medium: Wire, fiber, wireless
+
+### TLS Handshake Overview
+
+```plaintext
+title TLS Handshake
+
+Client->Server: Hello
+Server->Client: Hello
+Server->Client: Cert public key
+Server->Client: Hello Done
+
+note over Client: Pre-master secret
+note over Client: Symmetric key
+
+Client->Server: Change cypher key exchange
+Client->Server: Client finished
+
+note over Server: Pre-master secret
+note over Server: Symmetric key
+
+Server->Client: Change cypher sec
+Server->Client: Finished
+
+Client<->Server: Encrypted data transfer
+```
+
+### TLS Record Protocol
+
+**Sender**:
+
+1. Fragmentation
+2. Compression (optional)
+3. MAC computation (Key dependent; MD5, SHA-1, SHA-256 etc.)
+4. Encryption
+
+**Receiver**:
+
+1. Decryption
+2. MAC verification
+3. Decompression (optional)
+4. Reassembly
+
+### Connection States
+
+- Each side has four connection states
+  - One for each direction (read/write)
+  - One current and one pending set of states
+    - Parameters negotiated by the TLS handshake protocol
+    - Pending states made current by the change cypher spec protocol
+- Security parameters
+  - Connection end (client/server)
+  - Bulk encryption algorithm
+  - MAC algorithm
+  - Compression algorithm
+  - Master secret
+  - Client random
+  - Server random
+- Security items for both directions (client write/server write)
+  - Encryption keys
+  - MAC secrets
+  - Initialization vectors (in case of block cypher)
+  - Sequence numbers (no wrapping)
+
+### SSH Transport Layer Protocol
+
+- Tasks
+  - Server authentication
+  - Negotiation of algorithms and keys
+  - Confidentiality and integrity protection (for application data)
+- Prerequisites
+  - Server has a public key ("host key")
+  - Client has a trustworthy copy of the host key
+  - Reliable transport protocol (TCP) between client and server
