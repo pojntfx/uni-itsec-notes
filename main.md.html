@@ -237,8 +237,20 @@
 <li><a href="#one-way-functions">One-Way Functions</a></li>
 <li><a href="#diffie-hellman-key-exchange-protocol">Diffie-Hellman Key Exchange Protocol</a></li>
 <li><a href="#diffie-hellman-key-exchange-protocol-security">Diffie-Hellman Key Exchange Protocol Security</a></li>
+</ul></li>
+<li><a href="#trust">Trust</a>
+<ul>
 <li><a href="#digital-signatures">Digital Signatures</a></li>
 <li><a href="#rsa-signatures">RSA Signatures</a></li>
+<li><a href="#certificates">Certificates</a></li>
+</ul></li>
+<li><a href="#transport-security">Transport Security</a>
+<ul>
+<li><a href="#internet-model">Internet Model</a></li>
+<li><a href="#tls-handshake-overview">TLS Handshake Overview</a></li>
+<li><a href="#tls-record-protocol">TLS Record Protocol</a></li>
+<li><a href="#connection-states">Connection States</a></li>
+<li><a href="#ssh-transport-layer-protocol">SSH Transport Layer Protocol</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -999,6 +1011,7 @@
 <li><strong>Authenticity</strong> of exchanged messages: No protection against MITM attacks!</li>
 <li><strong>Diffie-Hellman problem complexity</strong>: Given <span class="math inline">\(g, p, A=g^x \mod p, B=g^y \mod p\)</span> find <span class="math inline">\(K=g^{xy} \mod p\)</span></li>
 </ul>
+<h2 id="trust">Trust</h2>
 <h3 id="digital-signatures">Digital Signatures</h3>
 <ul>
 <li>Requirements
@@ -1047,6 +1060,115 @@
 <li>Bob receives <span class="math inline">\((m&#39;, sig&#39;)\)</span></li>
 <li>Bob computes <span class="math inline">\(h(m&#39;)\)</span> and <span class="math inline">\((sig&#39;)^e \mod n\)</span></li>
 <li>If both match, the signature is verified</li>
+</ul></li>
+</ul>
+<h3 id="certificates">Certificates</h3>
+<ul>
+<li>A certificate (cert) certifies that a certain public key belongs to a certain identity (“person”)</li>
+<li>Certificates are digitally signed by service providers (Certificate Authorities, CAs) or government agencies (i.e. COVID certs)</li>
+<li><strong>X.509</strong>: ITU standard for a common certificate format; contains
+<ul>
+<li>Version (v3)</li>
+<li>Serial number (unique within the CA)</li>
+<li>Signature algorithm</li>
+<li>Issuer name (name of the CA)</li>
+<li>Time of validity (not before, not after)</li>
+<li>Subject name (who the cert is for)</li>
+<li>Subject public key info (public key of subject, algorithm of public key)</li>
+<li>ID of signature algorithm</li>
+<li>Certificate signature algorithm</li>
+<li>Certificate signature value (signature of the CA which signs the cert)</li>
+</ul></li>
+</ul>
+<h2 id="transport-security">Transport Security</h2>
+<h3 id="internet-model">Internet Model</h3>
+<ul>
+<li>7: Application Layer: HTTP, SMTP, …</li>
+<li>Between: TLS, SSH, …</li>
+<li>4: Transport Layer: TCP, UDP, …</li>
+<li>3: Internetwork Layer: IP</li>
+<li>2: Data Link Layer: IEEE 802.x</li>
+<li>1: Physical Layer: IEEE 802.x</li>
+<li>(0): Physical transmission medium: Wire, fiber, wireless</li>
+</ul>
+<h3 id="tls-handshake-overview">TLS Handshake Overview</h3>
+<pre class="plaintext"><code>title TLS Handshake
+
+Client-&gt;Server: Hello
+Server-&gt;Client: Hello
+Server-&gt;Client: Cert public key
+Server-&gt;Client: Hello Done
+
+note over Client: Pre-master secret
+note over Client: Symmetric key
+
+Client-&gt;Server: Change cypher key exchange
+Client-&gt;Server: Client finished
+
+note over Server: Pre-master secret
+note over Server: Symmetric key
+
+Server-&gt;Client: Change cypher sec
+Server-&gt;Client: Finished
+
+Client&lt;-&gt;Server: Encrypted data transfer</code></pre>
+<h3 id="tls-record-protocol">TLS Record Protocol</h3>
+<p><strong>Sender</strong>:</p>
+<ol type="1">
+<li>Fragmentation</li>
+<li>Compression (optional)</li>
+<li>MAC computation (Key dependent; MD5, SHA-1, SHA-256 etc.)</li>
+<li>Encryption</li>
+</ol>
+<p><strong>Receiver</strong>:</p>
+<ol type="1">
+<li>Decryption</li>
+<li>MAC verification</li>
+<li>Decompression (optional)</li>
+<li>Reassembly</li>
+</ol>
+<h3 id="connection-states">Connection States</h3>
+<ul>
+<li>Each side has four connection states
+<ul>
+<li>One for each direction (read/write)</li>
+<li>One current and one pending set of states
+<ul>
+<li>Parameters negotiated by the TLS handshake protocol</li>
+<li>Pending states made current by the change cypher spec protocol</li>
+</ul></li>
+</ul></li>
+<li>Security parameters
+<ul>
+<li>Connection end (client/server)</li>
+<li>Bulk encryption algorithm</li>
+<li>MAC algorithm</li>
+<li>Compression algorithm</li>
+<li>Master secret</li>
+<li>Client random</li>
+<li>Server random</li>
+</ul></li>
+<li>Security items for both directions (client write/server write)
+<ul>
+<li>Encryption keys</li>
+<li>MAC secrets</li>
+<li>Initialization vectors (in case of block cypher)</li>
+<li>Sequence numbers (no wrapping)</li>
+</ul></li>
+</ul>
+<h3 id="ssh-transport-layer-protocol">SSH Transport Layer Protocol</h3>
+<ul>
+<li>Tasks
+<ul>
+<li>Server authentication</li>
+<li>Negotiation of algorithms and keys</li>
+<li>Confidentiality and integrity protection (for application data)</li>
+</ul></li>
+<li>Prerequisites
+<ul>
+<li>Server has a public key (“host key”)</li>
+<li>Client has a trustworthy copy of the host key</li>
+<li>Reliable transport protocol (TCP) between client and server</li>
 </ul></li>
 </ul>
 </body>

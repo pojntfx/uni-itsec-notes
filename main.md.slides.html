@@ -935,6 +935,11 @@ Felicitas Pojtinger
 <li><strong>Diffie-Hellman problem complexity</strong>: Given <span class="math inline"><em>g</em>, <em>p</em>, <em>A</em> = <em>g</em><sup><em>x</em></sup> mod  <em>p</em>, <em>B</em> = <em>g</em><sup><em>y</em></sup> mod  <em>p</em></span> find <span class="math inline"><em>K</em> = <em>g</em><sup><em>x</em><em>y</em></sup> mod  <em>p</em></span></li>
 </ul>
 </div>
+
+<div id="trust" class="title-slide slide section level2">
+<h1>Trust</h1>
+
+</div>
 <div id="digital-signatures" class="slide section level3">
 <h1>Digital Signatures</h1>
 <ul>
@@ -986,6 +991,131 @@ Felicitas Pojtinger
 <li>Bob receives <span class="math inline">(<em>m</em>′,<em>s</em><em>i</em><em>g</em>′)</span></li>
 <li>Bob computes <span class="math inline"><em>h</em>(<em>m</em>′)</span> and <span class="math inline">(<em>s</em><em>i</em><em>g</em>′)<sup><em>e</em></sup> mod  <em>n</em></span></li>
 <li>If both match, the signature is verified</li>
+</ul></li>
+</ul>
+</div>
+<div id="certificates" class="slide section level3">
+<h1>Certificates</h1>
+<ul>
+<li>A certificate (cert) certifies that a certain public key belongs to a certain identity (“person”)</li>
+<li>Certificates are digitally signed by service providers (Certificate Authorities, CAs) or government agencies (i.e. COVID certs)</li>
+<li><strong>X.509</strong>: ITU standard for a common certificate format; contains
+<ul>
+<li>Version (v3)</li>
+<li>Serial number (unique within the CA)</li>
+<li>Signature algorithm</li>
+<li>Issuer name (name of the CA)</li>
+<li>Time of validity (not before, not after)</li>
+<li>Subject name (who the cert is for)</li>
+<li>Subject public key info (public key of subject, algorithm of public key)</li>
+<li>ID of signature algorithm</li>
+<li>Certificate signature algorithm</li>
+<li>Certificate signature value (signature of the CA which signs the cert)</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="transport-security" class="title-slide slide section level2">
+<h1>Transport Security</h1>
+
+</div>
+<div id="internet-model" class="slide section level3">
+<h1>Internet Model</h1>
+<ul>
+<li>7: Application Layer: HTTP, SMTP, …</li>
+<li>Between: TLS, SSH, …</li>
+<li>4: Transport Layer: TCP, UDP, …</li>
+<li>3: Internetwork Layer: IP</li>
+<li>2: Data Link Layer: IEEE 802.x</li>
+<li>1: Physical Layer: IEEE 802.x</li>
+<li>(0): Physical transmission medium: Wire, fiber, wireless</li>
+</ul>
+</div>
+<div id="tls-handshake-overview" class="slide section level3">
+<h1>TLS Handshake Overview</h1>
+<pre class="plaintext"><code>title TLS Handshake
+
+Client-&gt;Server: Hello
+Server-&gt;Client: Hello
+Server-&gt;Client: Cert public key
+Server-&gt;Client: Hello Done
+
+note over Client: Pre-master secret
+note over Client: Symmetric key
+
+Client-&gt;Server: Change cypher key exchange
+Client-&gt;Server: Client finished
+
+note over Server: Pre-master secret
+note over Server: Symmetric key
+
+Server-&gt;Client: Change cypher sec
+Server-&gt;Client: Finished
+
+Client&lt;-&gt;Server: Encrypted data transfer</code></pre>
+</div>
+<div id="tls-record-protocol" class="slide section level3">
+<h1>TLS Record Protocol</h1>
+<p><strong>Sender</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Fragmentation</li>
+<li>Compression (optional)</li>
+<li>MAC computation (Key dependent; MD5, SHA-1, SHA-256 etc.)</li>
+<li>Encryption</li>
+</ol>
+<p><strong>Receiver</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Decryption</li>
+<li>MAC verification</li>
+<li>Decompression (optional)</li>
+<li>Reassembly</li>
+</ol>
+</div>
+<div id="connection-states" class="slide section level3">
+<h1>Connection States</h1>
+<ul>
+<li>Each side has four connection states
+<ul>
+<li>One for each direction (read/write)</li>
+<li>One current and one pending set of states
+<ul>
+<li>Parameters negotiated by the TLS handshake protocol</li>
+<li>Pending states made current by the change cypher spec protocol</li>
+</ul></li>
+</ul></li>
+<li>Security parameters
+<ul>
+<li>Connection end (client/server)</li>
+<li>Bulk encryption algorithm</li>
+<li>MAC algorithm</li>
+<li>Compression algorithm</li>
+<li>Master secret</li>
+<li>Client random</li>
+<li>Server random</li>
+</ul></li>
+<li>Security items for both directions (client write/server write)
+<ul>
+<li>Encryption keys</li>
+<li>MAC secrets</li>
+<li>Initialization vectors (in case of block cypher)</li>
+<li>Sequence numbers (no wrapping)</li>
+</ul></li>
+</ul>
+</div>
+<div id="ssh-transport-layer-protocol" class="slide section level3">
+<h1>SSH Transport Layer Protocol</h1>
+<ul>
+<li>Tasks
+<ul>
+<li>Server authentication</li>
+<li>Negotiation of algorithms and keys</li>
+<li>Confidentiality and integrity protection (for application data)</li>
+</ul></li>
+<li>Prerequisites
+<ul>
+<li>Server has a public key (“host key”)</li>
+<li>Client has a trustworthy copy of the host key</li>
+<li>Reliable transport protocol (TCP) between client and server</li>
 </ul></li>
 </ul>
 </div>
