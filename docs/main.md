@@ -329,6 +329,12 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
   - Cookie poisoning: Stores the hash values of sent cookies
   - HTML manipulation: Encypts URL parameters
 
+### Cross-Site Scripting (XSS)
+
+- **Reflected/non-persistent XSS**: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code
+- **DOM-based XSS**: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code
+- **Stored (persistent) XSS**: Attacker provides malicious data using i.e. their profile page, `POST`s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker's profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code
+
 ### Intrusion Detection Systems (IDS)
 
 - Security product that is specialized on detecting anomalies during live operation of networks and computers
