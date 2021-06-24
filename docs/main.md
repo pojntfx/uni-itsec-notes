@@ -86,10 +86,24 @@
 
 ## Malware
 
+### Malware General Definition
+
 - Performs unwanted functions
 - Often runs without user's consent
 - Telemetry (often hidden in proprietary software behind EULAs)
 - Backdoors
+
+### Race Conditions
+
+Information is being changed after it has been checked, but before it has been executed.
+
+### Buffer Overflow
+
+- Application provides finite buffer for input but does not check size of input
+  - Buffer can overflow
+  - Overwriting internal information or allowing attacker to insert machine code to jump back into
+  - Possible due to Von Neumann architecture: Programs in data are stored in the same memory
+  - C does not check bounds (`gets`, `strcopy`, `memcopy`, `prinf` etc.)
 
 ## Networking
 
