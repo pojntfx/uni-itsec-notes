@@ -171,7 +171,12 @@
 <li><a href="#stride-attacks-on-a-multi-user-system">STRIDE: Attacks on a Multi-User System</a></li>
 <li><a href="#security-policies">Security policies</a></li>
 </ul></li>
-<li><a href="#malware">Malware</a></li>
+<li><a href="#malware">Malware</a>
+<ul>
+<li><a href="#malware-general-definition">Malware General Definition</a></li>
+<li><a href="#race-conditions">Race Conditions</a></li>
+<li><a href="#buffer-overflow">Buffer Overflow</a></li>
+</ul></li>
 <li><a href="#networking">Networking</a>
 <ul>
 <li><a href="#tcp-overview">TCP Overview</a></li>
@@ -345,11 +350,24 @@
 <li>Breached system: Is in forbidden state</li>
 </ul>
 <h2 id="malware">Malware</h2>
+<h3 id="malware-general-definition">Malware General Definition</h3>
 <ul>
 <li>Performs unwanted functions</li>
 <li>Often runs without user’s consent</li>
 <li>Telemetry (often hidden in proprietary software behind EULAs)</li>
 <li>Backdoors</li>
+</ul>
+<h3 id="race-conditions">Race Conditions</h3>
+<p>Information is being changed after it has been checked, but before it has been executed.</p>
+<h3 id="buffer-overflow">Buffer Overflow</h3>
+<ul>
+<li>Application provides finite buffer for input but does not check size of input
+<ul>
+<li>Buffer can overflow</li>
+<li>Overwriting internal information or allowing attacker to insert machine code to jump back into</li>
+<li>Possible due to Von Neumann architecture: Programs in data are stored in the same memory</li>
+<li>C does not check bounds (<code>gets</code>, <code>strcopy</code>, <code>memcopy</code>, <code>prinf</code> etc.)</li>
+</ul></li>
 </ul>
 <h2 id="networking">Networking</h2>
 <h3 id="tcp-overview">TCP Overview</h3>

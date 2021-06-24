@@ -145,11 +145,31 @@ Felicitas Pojtinger
 
 <div id="malware" class="title-slide slide section level2">
 <h1>Malware</h1>
+
+</div>
+<div id="malware-general-definition" class="slide section level3">
+<h1>Malware General Definition</h1>
 <ul>
 <li>Performs unwanted functions</li>
 <li>Often runs without user’s consent</li>
 <li>Telemetry (often hidden in proprietary software behind EULAs)</li>
 <li>Backdoors</li>
+</ul>
+</div>
+<div id="race-conditions" class="slide section level3">
+<h1>Race Conditions</h1>
+<p>Information is being changed after it has been checked, but before it has been executed.</p>
+</div>
+<div id="buffer-overflow" class="slide section level3">
+<h1>Buffer Overflow</h1>
+<ul>
+<li>Application provides finite buffer for input but does not check size of input
+<ul>
+<li>Buffer can overflow</li>
+<li>Overwriting internal information or allowing attacker to insert machine code to jump back into</li>
+<li>Possible due to Von Neumann architecture: Programs in data are stored in the same memory</li>
+<li>C does not check bounds (<code>gets</code>, <code>strcopy</code>, <code>memcopy</code>, <code>prinf</code> etc.)</li>
+</ul></li>
 </ul>
 </div>
 
