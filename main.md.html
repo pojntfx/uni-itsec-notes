@@ -195,6 +195,7 @@
 <li><a href="#application-level-gateways">Application Level Gateways</a></li>
 <li><a href="#demilitarized-zone-dmz">Demilitarized Zone (DMZ)</a></li>
 <li><a href="#web-application-firewalls-wafs">Web Application Firewalls (WAFs)</a></li>
+<li><a href="#cross-site-scripting-xss">Cross-Site Scripting (XSS)</a></li>
 <li><a href="#intrusion-detection-systems-ids">Intrusion Detection Systems (IDS)</a></li>
 </ul></li>
 <li><a href="#symmetric-encryption">Symmetric Encryption</a>
@@ -627,6 +628,12 @@
 <li>Cookie poisoning: Stores the hash values of sent cookies</li>
 <li>HTML manipulation: Encypts URL parameters</li>
 </ul></li>
+</ul>
+<h3 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h3>
+<ul>
+<li><strong>Reflected/non-persistent XSS</strong>: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code</li>
+<li><strong>DOM-based XSS</strong>: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code</li>
+<li><strong>Stored (persistent) XSS</strong>: Attacker provides malicious data using i.e. their profile page, <code>POST</code>s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker’s profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code</li>
 </ul>
 <h3 id="intrusion-detection-systems-ids">Intrusion Detection Systems (IDS)</h3>
 <ul>
