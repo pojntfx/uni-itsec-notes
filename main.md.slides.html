@@ -474,6 +474,14 @@ Felicitas Pojtinger
 </ul></li>
 </ul>
 </div>
+<div id="cross-site-scripting-xss" class="slide section level3">
+<h1>Cross-Site Scripting (XSS)</h1>
+<ul>
+<li><strong>Reflected/non-persistent XSS</strong>: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code</li>
+<li><strong>DOM-based XSS</strong>: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code</li>
+<li><strong>Stored (persistent) XSS</strong>: Attacker provides malicious data using i.e. their profile page, <code>POST</code>s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker’s profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code</li>
+</ul>
+</div>
 <div id="intrusion-detection-systems-ids" class="slide section level3">
 <h1>Intrusion Detection Systems (IDS)</h1>
 <ul>
