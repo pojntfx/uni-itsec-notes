@@ -14,12 +14,18 @@
 - Anticipate what an attacker could do to a system
 - Weight security against user experience and privacy
 
+### Aspects of IT Security
+
+- Legal
+- Technical
+- Economical
+
 ### Security Objectives
 
 - **Confidentiality**/`conf`
   - Nobody but the legitimate receiver can read a message
   - Third party cannot gain access to communication patterns
-- **Integrity**/`int`: The contents of communication can't be changed
+- **Integrity**/`int`: The contents of communication can't be changed without the participants knowing
 - **Authenticity**/`authN`
   - **Entity Authentication**: Communication partners can prove their respective identity to one another
   - **Message Authentication**: It can be verified that a message is authentic (unaltered and sent by the correct entity)
@@ -34,12 +40,36 @@
   - Anonymity
   - Pseudonymity
 
+### Safety vs. Security
+
+- **Safety**: Coincidental crashes or failures
+- **Security**: Intentional attacks
+
 ### Attacks, Threats and Vulnerabilities
 
 - **Attacker**: A person who has the skill and motivation to carry out an attack: The steps needed to carry out an attack
 - **Vulnerability**: Some characteristics of the target that can result in a security breach
 - **Threat**: Combination of an attacker, an attack vector and a vulnerability
 - **Attack**: A threat that has been realized and has caused a security breach
+- **Attack Vector**: Some characteristics of the target system that can result in a security breach
+
+### Risk and Threat Analysis
+
+```mermaid
+graph TD
+    subgraph Threat analysis
+        A[System inventory and definition]-->B
+        B[Threat identification]-->C
+        C[Threat evaluation]
+    end
+
+    C-->D
+
+    subgraph Risk analysis
+        D[Impact evaluation]-->E
+        E[Risk calculation]-->A
+    end
+```
 
 ### Threat Identification
 
@@ -53,6 +83,12 @@
   - Note security assumptions of the system
   - Be careful with perimeter security: What if perimeter has been breached?
   - Note _possible_, but not yet exploitable vulnerabilities
+
+### Trade-offs in Security
+
+- **Costs increase exponentially** with increased security
+- **User friendliness decreases linearly** with increased security
+- Risk analysis can be used when tuning the level of security
 
 ## Security Frameworks
 
@@ -78,11 +114,27 @@
 - **D**oS
 - **E**scalation of Privileges
 
-### Security policies
+### Security Policies
 
 - Classification of system states into "allowed" and "forbidden" states
 - Secure system: Is only in allowed states
 - Breached system: Is in forbidden state
+
+### Security Mechanisms and Concepts
+
+```mermaid
+graph TD
+    A[Security policy]-->|requires|B
+    B[Security objectives]-->|realized by|C
+    C[Security mechanisms]-->|described by|D
+    D[Security concept]
+```
+
+### Mitigation Strategies
+
+- **Reduce**: Increase effort for attacker
+- **Assign**: Decrease damage for target
+- **Accept**: Accept remaining risk
 
 ## Malware
 
@@ -107,7 +159,7 @@ Information is being changed after it has been checked, but before it has been e
 
 ## Networking
 
-### TCP Overview
+Videos### TCP Overview
 
 - Characteristics
   - Reliable
