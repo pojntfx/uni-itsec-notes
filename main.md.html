@@ -161,15 +161,21 @@
 <li><a href="#basics">Basics</a>
 <ul>
 <li><a href="#security-mindset">Security Mindset</a></li>
+<li><a href="#aspects-of-it-security">Aspects of IT Security</a></li>
 <li><a href="#security-objectives">Security Objectives</a></li>
+<li><a href="#safety-vs.-security">Safety vs. Security</a></li>
 <li><a href="#attacks-threats-and-vulnerabilities">Attacks, Threats and Vulnerabilities</a></li>
+<li><a href="#risk-and-threat-analysis">Risk and Threat Analysis</a></li>
 <li><a href="#threat-identification">Threat Identification</a></li>
+<li><a href="#trade-offs-in-security">Trade-offs in Security</a></li>
 </ul></li>
 <li><a href="#security-frameworks">Security Frameworks</a>
 <ul>
 <li><a href="#network-specific-threat-examples">Network Specific Threat Examples</a></li>
 <li><a href="#stride-attacks-on-a-multi-user-system">STRIDE: Attacks on a Multi-User System</a></li>
-<li><a href="#security-policies">Security policies</a></li>
+<li><a href="#security-policies">Security Policies</a></li>
+<li><a href="#security-mechanisms-and-concepts">Security Mechanisms and Concepts</a></li>
+<li><a href="#mitigation-strategies">Mitigation Strategies</a></li>
 </ul></li>
 <li><a href="#malware">Malware</a>
 <ul>
@@ -179,7 +185,6 @@
 </ul></li>
 <li><a href="#networking">Networking</a>
 <ul>
-<li><a href="#tcp-overview">TCP Overview</a></li>
 <li><a href="#tcp-connection-establishment">TCP Connection Establishment</a></li>
 <li><a href="#ip-security-issues">IP Security Issues</a></li>
 <li><a href="#tcp-security-issues">TCP Security Issues</a></li>
@@ -270,6 +275,12 @@
 <li>Anticipate what an attacker could do to a system</li>
 <li>Weight security against user experience and privacy</li>
 </ul>
+<h3 id="aspects-of-it-security">Aspects of IT Security</h3>
+<ul>
+<li>Legal</li>
+<li>Technical</li>
+<li>Economical</li>
+</ul>
 <h3 id="security-objectives">Security Objectives</h3>
 <ul>
 <li><strong>Confidentiality</strong>/<code>conf</code>
@@ -277,7 +288,7 @@
 <li>Nobody but the legitimate receiver can read a message</li>
 <li>Third party cannot gain access to communication patterns</li>
 </ul></li>
-<li><strong>Integrity</strong>/<code>int</code>: The contents of communication can’t be changed</li>
+<li><strong>Integrity</strong>/<code>int</code>: The contents of communication can’t be changed without the participants knowing</li>
 <li><strong>Authenticity</strong>/<code>authN</code>
 <ul>
 <li><strong>Entity Authentication</strong>: Communication partners can prove their respective identity to one another</li>
@@ -298,13 +309,33 @@
 <li>Pseudonymity</li>
 </ul></li>
 </ul>
+<h3 id="safety-vs.-security">Safety vs. Security</h3>
+<ul>
+<li><strong>Safety</strong>: Coincidental crashes or failures</li>
+<li><strong>Security</strong>: Intentional attacks</li>
+</ul>
 <h3 id="attacks-threats-and-vulnerabilities">Attacks, Threats and Vulnerabilities</h3>
 <ul>
 <li><strong>Attacker</strong>: A person who has the skill and motivation to carry out an attack: The steps needed to carry out an attack</li>
 <li><strong>Vulnerability</strong>: Some characteristics of the target that can result in a security breach</li>
 <li><strong>Threat</strong>: Combination of an attacker, an attack vector and a vulnerability</li>
 <li><strong>Attack</strong>: A threat that has been realized and has caused a security breach</li>
+<li><strong>Attack Vector</strong>: Some characteristics of the target system that can result in a security breach</li>
 </ul>
+<h3 id="risk-and-threat-analysis">Risk and Threat Analysis</h3>
+<pre class="mermaid"><code>graph TD
+    subgraph Threat analysis
+        A[System inventory and definition]--&gt;B
+        B[Threat identification]--&gt;C
+        C[Threat evaluation]
+    end
+
+    C--&gt;D
+
+    subgraph Risk analysis
+        D[Impact evaluation]--&gt;E
+        E[Risk calculation]--&gt;A
+    end</code></pre>
 <h3 id="threat-identification">Threat Identification</h3>
 <ul>
 <li>Define <strong>system boundaries</strong>: What is part of your system, what is not?</li>
@@ -319,6 +350,12 @@
 <li>Be careful with perimeter security: What if perimeter has been breached?</li>
 <li>Note <em>possible</em>, but not yet exploitable vulnerabilities</li>
 </ul></li>
+</ul>
+<h3 id="trade-offs-in-security">Trade-offs in Security</h3>
+<ul>
+<li><strong>Costs increase exponentially</strong> with increased security</li>
+<li><strong>User friendliness decreases linearly</strong> with increased security</li>
+<li>Risk analysis can be used when tuning the level of security</li>
 </ul>
 <h2 id="security-frameworks">Security Frameworks</h2>
 <h3 id="network-specific-threat-examples">Network Specific Threat Examples</h3>
@@ -343,11 +380,23 @@
 <li><strong>D</strong>oS</li>
 <li><strong>E</strong>scalation of Privileges</li>
 </ul>
-<h3 id="security-policies">Security policies</h3>
+<h3 id="security-policies">Security Policies</h3>
 <ul>
 <li>Classification of system states into “allowed” and “forbidden” states</li>
 <li>Secure system: Is only in allowed states</li>
 <li>Breached system: Is in forbidden state</li>
+</ul>
+<h3 id="security-mechanisms-and-concepts">Security Mechanisms and Concepts</h3>
+<pre class="mermaid"><code>graph TD
+    A[Security policy]--&gt;|requires|B
+    B[Security objectives]--&gt;|realized by|C
+    C[Security mechanisms]--&gt;|described by|D
+    D[Security concept]</code></pre>
+<h3 id="mitigation-strategies">Mitigation Strategies</h3>
+<ul>
+<li><strong>Reduce</strong>: Increase effort for attacker</li>
+<li><strong>Assign</strong>: Decrease damage for target</li>
+<li><strong>Accept</strong>: Accept remaining risk</li>
 </ul>
 <h2 id="malware">Malware</h2>
 <h3 id="malware-general-definition">Malware General Definition</h3>
@@ -370,7 +419,7 @@
 </ul></li>
 </ul>
 <h2 id="networking">Networking</h2>
-<h3 id="tcp-overview">TCP Overview</h3>
+<p>Videos### TCP Overview</p>
 <ul>
 <li>Characteristics
 <ul>
