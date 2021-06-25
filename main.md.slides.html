@@ -47,6 +47,14 @@ Felicitas Pojtinger
 <li>Weight security against user experience and privacy</li>
 </ul>
 </div>
+<div id="aspects-of-it-security" class="slide section level3">
+<h1>Aspects of IT Security</h1>
+<ul>
+<li>Legal</li>
+<li>Technical</li>
+<li>Economical</li>
+</ul>
+</div>
 <div id="security-objectives" class="slide section level3">
 <h1>Security Objectives</h1>
 <ul>
@@ -55,7 +63,7 @@ Felicitas Pojtinger
 <li>Nobody but the legitimate receiver can read a message</li>
 <li>Third party cannot gain access to communication patterns</li>
 </ul></li>
-<li><strong>Integrity</strong>/<code>int</code>: The contents of communication can’t be changed</li>
+<li><strong>Integrity</strong>/<code>int</code>: The contents of communication can’t be changed without the participants knowing</li>
 <li><strong>Authenticity</strong>/<code>authN</code>
 <ul>
 <li><strong>Entity Authentication</strong>: Communication partners can prove their respective identity to one another</li>
@@ -77,6 +85,13 @@ Felicitas Pojtinger
 </ul></li>
 </ul>
 </div>
+<div id="safety-vs.-security" class="slide section level3">
+<h1>Safety vs. Security</h1>
+<ul>
+<li><strong>Safety</strong>: Coincidental crashes or failures</li>
+<li><strong>Security</strong>: Intentional attacks</li>
+</ul>
+</div>
 <div id="attacks-threats-and-vulnerabilities" class="slide section level3">
 <h1>Attacks, Threats and Vulnerabilities</h1>
 <ul>
@@ -84,7 +99,24 @@ Felicitas Pojtinger
 <li><strong>Vulnerability</strong>: Some characteristics of the target that can result in a security breach</li>
 <li><strong>Threat</strong>: Combination of an attacker, an attack vector and a vulnerability</li>
 <li><strong>Attack</strong>: A threat that has been realized and has caused a security breach</li>
+<li><strong>Attack Vector</strong>: Some characteristics of the target system that can result in a security breach</li>
 </ul>
+</div>
+<div id="risk-and-threat-analysis" class="slide section level3">
+<h1>Risk and Threat Analysis</h1>
+<pre class="mermaid"><code>graph TD
+    subgraph Threat analysis
+        A[System inventory and definition]--&gt;B
+        B[Threat identification]--&gt;C
+        C[Threat evaluation]
+    end
+
+    C--&gt;D
+
+    subgraph Risk analysis
+        D[Impact evaluation]--&gt;E
+        E[Risk calculation]--&gt;A
+    end</code></pre>
 </div>
 <div id="threat-identification" class="slide section level3">
 <h1>Threat Identification</h1>
@@ -101,6 +133,14 @@ Felicitas Pojtinger
 <li>Be careful with perimeter security: What if perimeter has been breached?</li>
 <li>Note <em>possible</em>, but not yet exploitable vulnerabilities</li>
 </ul></li>
+</ul>
+</div>
+<div id="trade-offs-in-security" class="slide section level3">
+<h1>Trade-offs in Security</h1>
+<ul>
+<li><strong>Costs increase exponentially</strong> with increased security</li>
+<li><strong>User friendliness decreases linearly</strong> with increased security</li>
+<li>Risk analysis can be used when tuning the level of security</li>
 </ul>
 </div>
 
@@ -135,11 +175,27 @@ Felicitas Pojtinger
 </ul>
 </div>
 <div id="security-policies" class="slide section level3">
-<h1>Security policies</h1>
+<h1>Security Policies</h1>
 <ul>
 <li>Classification of system states into “allowed” and “forbidden” states</li>
 <li>Secure system: Is only in allowed states</li>
 <li>Breached system: Is in forbidden state</li>
+</ul>
+</div>
+<div id="security-mechanisms-and-concepts" class="slide section level3">
+<h1>Security Mechanisms and Concepts</h1>
+<pre class="mermaid"><code>graph TD
+    A[Security policy]--&gt;|requires|B
+    B[Security objectives]--&gt;|realized by|C
+    C[Security mechanisms]--&gt;|described by|D
+    D[Security concept]</code></pre>
+</div>
+<div id="mitigation-strategies" class="slide section level3">
+<h1>Mitigation Strategies</h1>
+<ul>
+<li><strong>Reduce</strong>: Increase effort for attacker</li>
+<li><strong>Assign</strong>: Decrease damage for target</li>
+<li><strong>Accept</strong>: Accept remaining risk</li>
 </ul>
 </div>
 
@@ -175,10 +231,7 @@ Felicitas Pojtinger
 
 <div id="networking" class="title-slide slide section level2">
 <h1>Networking</h1>
-
-</div>
-<div id="tcp-overview" class="slide section level3">
-<h1>TCP Overview</h1>
+<p>Videos### TCP Overview</p>
 <ul>
 <li>Characteristics
 <ul>
