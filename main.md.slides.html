@@ -32,7 +32,9 @@ Felicitas Pojtinger
 </div>
 <div id="uni-it-security-notes" class="title-slide slide section level1">
 <h1>Uni IT Security Notes</h1>
-
+<blockquote>
+<p>These study materials are heavily based on <a href="https://www.hdm-stuttgart.de/mi/infoszumstudium/studium/schwerpunkte/it_security_htmldoc2">professor Schmitz’s “IT Security” lecture at HdM Stuttgart</a>.</p>
+</blockquote>
 </div>
 <div id="basics" class="title-slide slide section level2">
 <h1>Basics</h1>
@@ -212,9 +214,106 @@ Felicitas Pojtinger
 <li>Backdoors</li>
 </ul>
 </div>
-<div id="race-conditions" class="slide section level3">
-<h1>Race Conditions</h1>
-<p>Information is being changed after it has been checked, but before it has been executed.</p>
+<div id="infection-paths" class="slide section level3">
+<h1>Infection Paths</h1>
+<ul>
+<li><strong>Direct infection</strong>: Mail → Executable</li>
+<li><strong>Exploitation of vulnerabilities</strong>: Over network, drive-by infection (downloads which a person has authorized but without understanding the consequences)</li>
+<li><strong>External devices</strong>: USB sticks</li>
+<li><strong>Bundled</strong> with other functionality: Trojan horses</li>
+</ul>
+</div>
+<div id="malware-types" class="slide section level3">
+<h1>Malware Types</h1>
+<ul>
+<li><strong>Computer viruses</strong>
+<ul>
+<li><strong>Boot sector</strong> virus (infects all drives)</li>
+<li><strong>File</strong> virus</li>
+<li><strong>Macro</strong> virus</li>
+<li><strong>Worm</strong>: Network based virus</li>
+</ul></li>
+<li>Trojan horses; adware</li>
+<li>Key loggers, spyware</li>
+<li>Botnet software</li>
+<li>Ransomware: Extortion</li>
+</ul>
+</div>
+<div id="trojan-horses" class="slide section level3">
+<h1>Trojan Horses</h1>
+<ul>
+<li>Has server and client parts</li>
+<li>Server is used for installation, which the client then confirms</li>
+<li>Once installed, an attacker can take control
+<ul>
+<li>Reading sensitive data</li>
+<li>Key logging</li>
+<li>Botnet integration</li>
+</ul></li>
+</ul>
+</div>
+<div id="backdoors" class="slide section level3">
+<h1>Backdoors</h1>
+<p>Intentionally created remote code execution vulnerability/ingress into system (<em>Hello, Five Eyes!</em>).</p>
+</div>
+<div id="logic-bomb" class="slide section level3">
+<h1>Logic Bomb</h1>
+<p>Malicious function, which is called once condition evaluates to true.</p>
+</div>
+<div id="rootkit" class="slide section level3">
+<h1>Rootkit</h1>
+<p>Collection of services installed on a compromised system, which enables hiding …</p>
+<ul>
+<li>Logins</li>
+<li>Processes</li>
+<li>Files</li>
+</ul>
+<p>from users other than <code>root</code>.</p>
+</div>
+<div id="advanced-persistent-threat" class="slide section level3">
+<h1>Advanced Persistent Threat</h1>
+<p><strong>Advanced</strong>:</p>
+<ul>
+<li>Attack is customized to target host (one node)</li>
+<li>High effort</li>
+<li>Targets are i.e. VIPs or institutions</li>
+</ul>
+<p><strong>Persistent</strong>:</p>
+<ul>
+<li>First infected host is used to infiltrate the entire system</li>
+<li>Scans for login information to create an account for the attackers</li>
+</ul>
+<p><strong>Threats</strong>: Often uses Zero-Day vulnerabilities</p>
+</div>
+<div id="botnet" class="slide section level3">
+<h1>Botnet</h1>
+<ul>
+<li>Infected host does work for somebody external</li>
+<li>Master controls the bots and distributes updates to stay hidden</li>
+<li>Dynamic: Needs to handle hosts being turned on/off and has to hide its existence</li>
+<li>Can be used to send spam, DDoS attacks, hosting of malicious sites</li>
+</ul>
+</div>
+<div id="common-reasons-for-vulnerabilities" class="slide section level3">
+<h1>Common Reasons for Vulnerabilities</h1>
+<p>Issues in …</p>
+<ul>
+<li>Architecture</li>
+<li>Design</li>
+<li>Implementation</li>
+</ul>
+<p>… lead to attack vectors:</p>
+<ul>
+<li><strong>Client side</strong>: Browser, office software, E-Mail, media players, …</li>
+<li><strong>Server side</strong>: Web apps, OS services, Anti-virus/backup software</li>
+<li><strong>Relaxed security policies</strong>: User has to many capabilities</li>
+<li><strong>Abuse of protocols</strong>: Instant messaging can be used as remote control, BitTorrent for distribution etc.</li>
+<li><strong>Zero-day attacks</strong>: Non-public vulnerabilities</li>
+</ul>
+</div>
+<div id="side-channel-attacks" class="slide section level3">
+<h1>Side-Channel Attacks</h1>
+<p>Indirect (physical) attack on a system; i.e. smudge patterns on a smartphone</p>
 </div>
 <div id="buffer-overflow" class="slide section level3">
 <h1>Buffer Overflow</h1>
@@ -227,6 +326,10 @@ Felicitas Pojtinger
 <li>C does not check bounds (<code>gets</code>, <code>strcopy</code>, <code>memcopy</code>, <code>prinf</code> etc.)</li>
 </ul></li>
 </ul>
+</div>
+<div id="race-conditions" class="slide section level3">
+<h1>Race Conditions</h1>
+<p>Information is being changed after it has been checked, but before it has been executed.</p>
 </div>
 
 <div id="networking" class="title-slide slide section level2">
@@ -298,18 +401,18 @@ Felicitas Pojtinger
 <h1>TCP Security Issues</h1>
 <ul>
 <li>TCP header doesn’t have confidentiality or integrity protection</li>
-<li>Session hijacking
+<li><strong>Session hijacking</strong>
 <ul>
 <li>When sniffing session details, attacker can impersonate a peer in a TCP connection</li>
 <li>Attackers can guess session details and attack remotely using spoofed IP addresses</li>
 </ul></li>
-<li>RST attack: Attackers can reset/abort attacks by injecting packets with the RST flag</li>
-<li>Port scanning
+<li><strong>RST attack</strong>: Attackers can reset/abort attacks by injecting packets with the RST flag</li>
+<li><strong>Port scanning</strong>
 <ul>
 <li>Find out open ports</li>
 <li>Determine software running on port</li>
 </ul></li>
-<li>SYN flooding
+<li><strong>SYN flooding</strong>
 <ul>
 <li>Overload system resources by initializing many connections and not pursuing them</li>
 </ul></li>
@@ -318,7 +421,7 @@ Felicitas Pojtinger
 <div id="port-scanning" class="slide section level3">
 <h1>Port Scanning</h1>
 <ul>
-<li>Objective: <strong>Collect information</strong>
+<li>Objective: <strong>Collect information</strong> about …
 <ul>
 <li>Installed services</li>
 <li>Software versions</li>
@@ -332,10 +435,10 @@ Felicitas Pojtinger
 </ul></li>
 <li>Possible scanning methods
 <ul>
-<li>TCP connect scan</li>
-<li>Half-open scan</li>
-<li>SYN-ACK scan</li>
-<li>ACK scan</li>
+<li><strong>TCP connect</strong> scan</li>
+<li><strong>Half-open</strong> scan</li>
+<li><strong>SYN-ACK</strong> scan</li>
+<li><strong>ACK</strong> scan</li>
 </ul></li>
 </ul>
 </div>
@@ -537,23 +640,28 @@ Felicitas Pojtinger
 <h1>Web Application Firewalls (WAFs)</h1>
 <ul>
 <li>Acts on the application layer</li>
-<li>Is a reverse prxoy</li>
+<li>Is a reverse proxy</li>
 <li>Can protect the web server from “evil” client input
 <ul>
 <li>Cross-Site scripting</li>
 <li>SQL injection: Filters out JS or SQL commands in client input by removing special symbols (i.e. <code>&lt;</code>, <code>&#39;</code> etc)</li>
 <li>Cookie poisoning: Stores the hash values of sent cookies</li>
-<li>HTML manipulation: Encypts URL parameters</li>
+<li>HTML manipulation: Encrypts URL parameters</li>
 </ul></li>
 </ul>
 </div>
 <div id="cross-site-scripting-xss" class="slide section level3">
 <h1>Cross-Site Scripting (XSS)</h1>
+<p>Injection of malicious client-side code (JS, WASM) into site. There are multiple types:</p>
 <ul>
 <li><strong>Reflected/non-persistent XSS</strong>: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code</li>
 <li><strong>DOM-based XSS</strong>: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code</li>
 <li><strong>Stored (persistent) XSS</strong>: Attacker provides malicious data using i.e. their profile page, <code>POST</code>s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker’s profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code</li>
 </ul>
+</div>
+<div id="cross-site-request-forgery-csrf" class="slide section level3">
+<h1>Cross Site Request Forgery (CSRF)</h1>
+<p>Sniffing of cookies/tokens from a connection in another tab.</p>
 </div>
 <div id="intrusion-detection-systems-ids" class="slide section level3">
 <h1>Intrusion Detection Systems (IDS)</h1>
@@ -567,11 +675,11 @@ Felicitas Pojtinger
 <ul>
 <li><strong>Signature based</strong>: Use attack signatures/known malicious communication activity patterns</li>
 <li><strong>Anomaly based</strong>: Significant deviation from previously recorded baseline activity</li>
-<li><strong>Rule based</strong>: Define allowed by behaviour by app-specific set of legitimate actions</li>
+<li><strong>Rule based</strong>: Define allowed by behavior by app-specific set of legitimate actions</li>
 </ul></li>
 <li>Actions
 <ul>
-<li>Send ut alarm</li>
+<li>Send out alarm</li>
 <li>Logging</li>
 <li>Blocking of known patters</li>
 </ul></li>
@@ -581,6 +689,13 @@ Felicitas Pojtinger
 <li>Integration in firewall</li>
 <li>Integration into host</li>
 </ul></li>
+</ul>
+</div>
+<div id="injections" class="slide section level3">
+<h1>Injections</h1>
+<ul>
+<li><strong>SQL injection</strong>: SQL commands are sent to the database because neither server nor client escape i.e. <code>&#39;</code></li>
+<li><strong>HTML injection</strong>: Parameters in HTML forms can also be sent using a <code>POST</code> request</li>
 </ul>
 </div>
 
