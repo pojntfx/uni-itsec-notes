@@ -483,8 +483,8 @@ Felicitas Pojtinger
 <p>Only works if B uses a predicable algorithm for it’s ISN and packet filters aren’t in place.</p>
 </div>
 
-<div id="perimeter-defense-in-pratice" class="title-slide slide section level2">
-<h1>Perimeter Defense in Pratice</h1>
+<div id="perimeter-defense-in-practice" class="title-slide slide section level2">
+<h1>Perimeter Defense in Practice</h1>
 
 </div>
 <div id="architecture-recommendations" class="slide section level3">
@@ -623,6 +623,14 @@ Felicitas Pojtinger
 <li>Disadvantage: Computing and memory performance requirements</li>
 </ul>
 </div>
+<div id="circuit-level-gateway" class="slide section level3">
+<h1>Circuit Level Gateway</h1>
+<ul>
+<li>Checks/controls at TCP connection level</li>
+<li>Creates separate connection to outside and inside</li>
+<li>Checks data before it is being sent to the transport layer</li>
+</ul>
+</div>
 <div id="demilitarized-zone-dmz" class="slide section level3">
 <h1>Demilitarized Zone (DMZ)</h1>
 <ul>
@@ -740,8 +748,8 @@ Felicitas Pojtinger
 <div id="strong-algorithms" class="slide section level3">
 <h1>Strong Algorithms</h1>
 <ul>
-<li>There is no attack that can break it with less effort than a brute force attack (“complete enumeration”)</li>
-<li>There are so many keys that a complete search of key space is infeasable</li>
+<li>There is <strong>no attack that can break it with less effort than a brute force attack</strong> (“complete enumeration”)</li>
+<li>There are so many keys that a <strong>complete search of key space is infeasible</strong></li>
 </ul>
 </div>
 <div id="crypto-attack-classes" class="slide section level3">
@@ -758,7 +766,7 @@ Felicitas Pojtinger
 </div>
 <div id="perfect-security" class="slide section level3">
 <h1>Perfect Security</h1>
-<p>Ciphertext does not give any information you don’t already have about the plaintext</p>
+<p>Ciphertext does not give any information you don’t already have about the plaintext (<span class="math inline"><em>p</em>(<em>m</em>(<em>c</em>)) = <em>p</em>(<em>m</em>)</span>)</p>
 </div>
 <div id="one-time-pad" class="slide section level3">
 <h1>One-Time-Pad</h1>
@@ -778,8 +786,16 @@ Felicitas Pojtinger
 <h1>Stream Cyphers</h1>
 <p>Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a <strong>Crytographically Secure Pseudo-Random Number Generator (CSPRNG)</strong>)</p>
 </div>
+<div id="true-random-number-generators" class="slide section level3">
+<h1>True Random Number Generators</h1>
+<ul>
+<li>Output can’t be reproduced or predicted</li>
+<li>Is based on physical processes</li>
+</ul>
+</div>
 <div id="cryptographically-secure-pseudo-random-number-generators-csprng" class="slide section level3">
-<h1>Cryptographically Secure Pseudo-Random Number Generators (CSPRNG)</h1>
+<h1>(Cryptographically Secure) Pseudo-Random Number Generators (CSPRNG)</h1>
+<p>PSRNGs compute the output based on a seed and an internal state.</p>
 <p>A CSPRNG must …</p>
 <ul>
 <li>Be unpredictable</li>
@@ -900,7 +916,7 @@ Felicitas Pojtinger
 <ul>
 <li>128bit keys have to be replaced in the coming years</li>
 <li>192bit keys are secure in medium term</li>
-<li>256bit keys are hard to crack due to physical boundaries</li>
+<li>256bit keys are hard to crack due to physical boundaries (“state of the art”)</li>
 </ul></li>
 <li>Quantum computers might be able to crack keys much more quickly</li>
 <li>Numbers refer to unbroken algorithms in symmetric cryptography
@@ -1018,6 +1034,9 @@ Felicitas Pojtinger
 </div>
 <div id="rsa-key-generation" class="slide section level3">
 <h1>RSA Key Generation</h1>
+<blockquote>
+<p>Also see the <a href="static/rsa_computation.pdf">handwritten notes</a>.</p>
+</blockquote>
 <ol style="list-style-type: decimal">
 <li>Alice chooses 2 large prime numbers <span class="math inline"><em>p</em>, <em>q</em></span> and computes <span class="math inline"><em>n</em> = <em>p</em> ⋅ <em>q</em></span>, <span class="math inline"><em>ϕ</em>(<em>n</em>) = (<em>p</em>−1)(<em>q</em>−1)</span></li>
 <li>Alice chooses an integer <span class="math inline"><em>e</em></span> with <span class="math inline">1 &lt; <em>e</em> &lt; <em>ϕ</em>(<em>n</em>)</span> that is relatively prime to <span class="math inline"><em>ϕ</em>(<em>n</em>)</span></li>
@@ -1028,6 +1047,9 @@ Felicitas Pojtinger
 </div>
 <div id="rsa-encryption" class="slide section level3">
 <h1>RSA Encryption</h1>
+<blockquote>
+<p>Also see the <a href="static/rsa_computation.pdf">handwritten notes</a>.</p>
+</blockquote>
 <ol style="list-style-type: decimal">
 <li>Bob obtains <span class="math inline"><em>P</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub> = (<em>e</em>,<em>n</em>)</span></li>
 <li>Bob composes plaintext <span class="math inline"><em>m</em> ∈ <em>M</em> = {1, 2, ..., <em>n</em> − 1}</span></li>
@@ -1037,6 +1059,9 @@ Felicitas Pojtinger
 </div>
 <div id="rsa-decryption" class="slide section level3">
 <h1>RSA Decryption</h1>
+<blockquote>
+<p>Also see the <a href="static/rsa_computation.pdf">handwritten notes</a>.</p>
+</blockquote>
 <p>Alice can obtain the plaintext message <span class="math inline"><em>m</em></span> by computing <span class="math inline"><em>m</em> = <em>D</em><sub><em>S</em><em>K</em><sub><em>A</em><em>l</em><em>i</em><em>c</em><em>e</em></sub></sub>(<em>c</em>) = <em>c</em><sup><em>d</em></sup> mod  <em>n</em> = <em>m</em><sup><em>e</em><em>d</em></sup> mod  <em>n</em></span></p>
 </div>
 <div id="rsa-security" class="slide section level3">
@@ -1110,6 +1135,9 @@ Felicitas Pojtinger
 <div id="diffie-hellman-key-exchange-protocol" class="slide section level3">
 <h1>Diffie-Hellman Key Exchange Protocol</h1>
 <p><strong>Purpose</strong>: Allow communication partners without prior knowledge of another to establish a shared secret key over an insecure communication channel</p>
+<blockquote>
+<p>Also see the <a href="static/diffie_hellman_exchange_computation.pdf">handwritten notes</a>.</p>
+</blockquote>
 <ol style="list-style-type: decimal">
 <li>Alice and Bob agree publicly on prime number <span class="math inline"><em>p</em></span> and a primitive element <span class="math inline"><em>g</em> ≤ <em>p</em> − 1</span></li>
 <li>Alice randomly chooses <span class="math inline"><em>α</em> ∈ {2, ..., <em>p</em> − 2}</span> and computes <span class="math inline"><em>A</em> = <em>g</em><sup><em>α</em></sup> mod  <em>p</em></span></li>
