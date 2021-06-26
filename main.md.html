@@ -180,8 +180,18 @@
 <li><a href="#malware">Malware</a>
 <ul>
 <li><a href="#malware-general-definition">Malware General Definition</a></li>
-<li><a href="#race-conditions">Race Conditions</a></li>
+<li><a href="#infection-paths">Infection Paths</a></li>
+<li><a href="#malware-types">Malware Types</a></li>
+<li><a href="#trojan-horses">Trojan Horses</a></li>
+<li><a href="#backdoors">Backdoors</a></li>
+<li><a href="#logic-bomb">Logic Bomb</a></li>
+<li><a href="#rootkit">Rootkit</a></li>
+<li><a href="#advanced-persistent-threat">Advanced Persistent Threat</a></li>
+<li><a href="#botnet">Botnet</a></li>
+<li><a href="#common-reasons-for-vulnerabilities">Common Reasons for Vulnerabilities</a></li>
+<li><a href="#side-channel-attacks">Side-Channel Attacks</a></li>
 <li><a href="#buffer-overflow">Buffer Overflow</a></li>
+<li><a href="#race-conditions">Race Conditions</a></li>
 </ul></li>
 <li><a href="#networking">Networking</a>
 <ul>
@@ -206,7 +216,9 @@
 <li><a href="#demilitarized-zone-dmz">Demilitarized Zone (DMZ)</a></li>
 <li><a href="#web-application-firewalls-wafs">Web Application Firewalls (WAFs)</a></li>
 <li><a href="#cross-site-scripting-xss">Cross-Site Scripting (XSS)</a></li>
+<li><a href="#cross-site-request-forgery-csrf">Cross Site Request Forgery (CSRF)</a></li>
 <li><a href="#intrusion-detection-systems-ids">Intrusion Detection Systems (IDS)</a></li>
+<li><a href="#injections">Injections</a></li>
 </ul></li>
 <li><a href="#symmetric-encryption">Symmetric Encryption</a>
 <ul>
@@ -267,6 +279,9 @@
 </ul>
 </nav>
 <h1 id="uni-it-security-notes">Uni IT Security Notes</h1>
+<blockquote>
+<p>These study materials are heavily based on <a href="https://www.hdm-stuttgart.de/mi/infoszumstudium/studium/schwerpunkte/it_security_htmldoc2">professor Schmitz’s “IT Security” lecture at HdM Stuttgart</a>.</p>
+</blockquote>
 <h2 id="basics">Basics</h2>
 <h3 id="security-mindset">Security Mindset</h3>
 <ul>
@@ -406,8 +421,87 @@
 <li>Telemetry (often hidden in proprietary software behind EULAs)</li>
 <li>Backdoors</li>
 </ul>
-<h3 id="race-conditions">Race Conditions</h3>
-<p>Information is being changed after it has been checked, but before it has been executed.</p>
+<h3 id="infection-paths">Infection Paths</h3>
+<ul>
+<li><strong>Direct infection</strong>: Mail → Executable</li>
+<li><strong>Exploitation of vulnerabilities</strong>: Over network, drive-by infection (downloads which a person has authorized but without understanding the consequences)</li>
+<li><strong>External devices</strong>: USB sticks</li>
+<li><strong>Bundled</strong> with other functionality: Trojan horses</li>
+</ul>
+<h3 id="malware-types">Malware Types</h3>
+<ul>
+<li><strong>Computer viruses</strong>
+<ul>
+<li><strong>Boot sector</strong> virus (infects all drives)</li>
+<li><strong>File</strong> virus</li>
+<li><strong>Macro</strong> virus</li>
+<li><strong>Worm</strong>: Network based virus</li>
+</ul></li>
+<li>Trojan horses; adware</li>
+<li>Key loggers, spyware</li>
+<li>Botnet software</li>
+<li>Ransomware: Extortion</li>
+</ul>
+<h3 id="trojan-horses">Trojan Horses</h3>
+<ul>
+<li>Has server and client parts</li>
+<li>Server is used for installation, which the client then confirms</li>
+<li>Once installed, an attacker can take control
+<ul>
+<li>Reading sensitive data</li>
+<li>Key logging</li>
+<li>Botnet integration</li>
+</ul></li>
+</ul>
+<h3 id="backdoors">Backdoors</h3>
+<p>Intentionally created remote code execution vulnerability/ingress into system (<em>Hello, Five Eyes!</em>).</p>
+<h3 id="logic-bomb">Logic Bomb</h3>
+<p>Malicious function, which is called once condition evaluates to true.</p>
+<h3 id="rootkit">Rootkit</h3>
+<p>Collection of services installed on a compromised system, which enables hiding …</p>
+<ul>
+<li>Logins</li>
+<li>Processes</li>
+<li>Files</li>
+</ul>
+<p>from users other than <code>root</code>.</p>
+<h3 id="advanced-persistent-threat">Advanced Persistent Threat</h3>
+<p><strong>Advanced</strong>:</p>
+<ul>
+<li>Attack is customized to target host (one node)</li>
+<li>High effort</li>
+<li>Targets are i.e. VIPs or institutions</li>
+</ul>
+<p><strong>Persistent</strong>:</p>
+<ul>
+<li>First infected host is used to infiltrate the entire system</li>
+<li>Scans for login information to create an account for the attackers</li>
+</ul>
+<p><strong>Threats</strong>: Often uses Zero-Day vulnerabilities</p>
+<h3 id="botnet">Botnet</h3>
+<ul>
+<li>Infected host does work for somebody external</li>
+<li>Master controls the bots and distributes updates to stay hidden</li>
+<li>Dynamic: Needs to handle hosts being turned on/off and has to hide its existence</li>
+<li>Can be used to send spam, DDoS attacks, hosting of malicious sites</li>
+</ul>
+<h3 id="common-reasons-for-vulnerabilities">Common Reasons for Vulnerabilities</h3>
+<p>Issues in …</p>
+<ul>
+<li>Architecture</li>
+<li>Design</li>
+<li>Implementation</li>
+</ul>
+<p>… lead to attack vectors:</p>
+<ul>
+<li><strong>Client side</strong>: Browser, office software, E-Mail, media players, …</li>
+<li><strong>Server side</strong>: Web apps, OS services, Anti-virus/backup software</li>
+<li><strong>Relaxed security policies</strong>: User has to many capabilities</li>
+<li><strong>Abuse of protocols</strong>: Instant messaging can be used as remote control, BitTorrent for distribution etc.</li>
+<li><strong>Zero-day attacks</strong>: Non-public vulnerabilities</li>
+</ul>
+<h3 id="side-channel-attacks">Side-Channel Attacks</h3>
+<p>Indirect (physical) attack on a system; i.e. smudge patterns on a smartphone</p>
 <h3 id="buffer-overflow">Buffer Overflow</h3>
 <ul>
 <li>Application provides finite buffer for input but does not check size of input
@@ -418,6 +512,8 @@
 <li>C does not check bounds (<code>gets</code>, <code>strcopy</code>, <code>memcopy</code>, <code>prinf</code> etc.)</li>
 </ul></li>
 </ul>
+<h3 id="race-conditions">Race Conditions</h3>
+<p>Information is being changed after it has been checked, but before it has been executed.</p>
 <h2 id="networking">Networking</h2>
 <p>Videos### TCP Overview</p>
 <ul>
@@ -480,25 +576,25 @@
 <h3 id="tcp-security-issues">TCP Security Issues</h3>
 <ul>
 <li>TCP header doesn’t have confidentiality or integrity protection</li>
-<li>Session hijacking
+<li><strong>Session hijacking</strong>
 <ul>
 <li>When sniffing session details, attacker can impersonate a peer in a TCP connection</li>
 <li>Attackers can guess session details and attack remotely using spoofed IP addresses</li>
 </ul></li>
-<li>RST attack: Attackers can reset/abort attacks by injecting packets with the RST flag</li>
-<li>Port scanning
+<li><strong>RST attack</strong>: Attackers can reset/abort attacks by injecting packets with the RST flag</li>
+<li><strong>Port scanning</strong>
 <ul>
 <li>Find out open ports</li>
 <li>Determine software running on port</li>
 </ul></li>
-<li>SYN flooding
+<li><strong>SYN flooding</strong>
 <ul>
 <li>Overload system resources by initializing many connections and not pursuing them</li>
 </ul></li>
 </ul>
 <h3 id="port-scanning">Port Scanning</h3>
 <ul>
-<li>Objective: <strong>Collect information</strong>
+<li>Objective: <strong>Collect information</strong> about …
 <ul>
 <li>Installed services</li>
 <li>Software versions</li>
@@ -512,10 +608,10 @@
 </ul></li>
 <li>Possible scanning methods
 <ul>
-<li>TCP connect scan</li>
-<li>Half-open scan</li>
-<li>SYN-ACK scan</li>
-<li>ACK scan</li>
+<li><strong>TCP connect</strong> scan</li>
+<li><strong>Half-open</strong> scan</li>
+<li><strong>SYN-ACK</strong> scan</li>
+<li><strong>ACK</strong> scan</li>
 </ul></li>
 </ul>
 <h3 id="tcp-protection-mechanisms">TCP Protection Mechanisms</h3>
@@ -687,21 +783,24 @@
 <h3 id="web-application-firewalls-wafs">Web Application Firewalls (WAFs)</h3>
 <ul>
 <li>Acts on the application layer</li>
-<li>Is a reverse prxoy</li>
+<li>Is a reverse proxy</li>
 <li>Can protect the web server from “evil” client input
 <ul>
 <li>Cross-Site scripting</li>
 <li>SQL injection: Filters out JS or SQL commands in client input by removing special symbols (i.e. <code>&lt;</code>, <code>&#39;</code> etc)</li>
 <li>Cookie poisoning: Stores the hash values of sent cookies</li>
-<li>HTML manipulation: Encypts URL parameters</li>
+<li>HTML manipulation: Encrypts URL parameters</li>
 </ul></li>
 </ul>
 <h3 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h3>
+<p>Injection of malicious client-side code (JS, WASM) into site. There are multiple types:</p>
 <ul>
 <li><strong>Reflected/non-persistent XSS</strong>: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code</li>
 <li><strong>DOM-based XSS</strong>: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code</li>
 <li><strong>Stored (persistent) XSS</strong>: Attacker provides malicious data using i.e. their profile page, <code>POST</code>s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker’s profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code</li>
 </ul>
+<h3 id="cross-site-request-forgery-csrf">Cross Site Request Forgery (CSRF)</h3>
+<p>Sniffing of cookies/tokens from a connection in another tab.</p>
 <h3 id="intrusion-detection-systems-ids">Intrusion Detection Systems (IDS)</h3>
 <ul>
 <li>Security product that is specialized on detecting anomalies during live operation of networks and computers
@@ -713,11 +812,11 @@
 <ul>
 <li><strong>Signature based</strong>: Use attack signatures/known malicious communication activity patterns</li>
 <li><strong>Anomaly based</strong>: Significant deviation from previously recorded baseline activity</li>
-<li><strong>Rule based</strong>: Define allowed by behaviour by app-specific set of legitimate actions</li>
+<li><strong>Rule based</strong>: Define allowed by behavior by app-specific set of legitimate actions</li>
 </ul></li>
 <li>Actions
 <ul>
-<li>Send ut alarm</li>
+<li>Send out alarm</li>
 <li>Logging</li>
 <li>Blocking of known patters</li>
 </ul></li>
@@ -727,6 +826,11 @@
 <li>Integration in firewall</li>
 <li>Integration into host</li>
 </ul></li>
+</ul>
+<h3 id="injections">Injections</h3>
+<ul>
+<li><strong>SQL injection</strong>: SQL commands are sent to the database because neither server nor client escape i.e. <code>&#39;</code></li>
+<li><strong>HTML injection</strong>: Parameters in HTML forms can also be sent using a <code>POST</code> request</li>
 </ul>
 <h2 id="symmetric-encryption">Symmetric Encryption</h2>
 <h3 id="symmetric-encryption-overview">Symmetric Encryption Overview</h3>
