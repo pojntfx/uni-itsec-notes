@@ -363,7 +363,7 @@ To circumvent this restriction:
 
 Only works if B uses a predicable algorithm for it's ISN and packet filters aren't in place.
 
-## Perimeter Defense in Pratice
+## Perimeter Defense in Practice
 
 ### Architecture Recommendations
 
@@ -461,6 +461,12 @@ Only works if B uses a predicable algorithm for it's ISN and packet filters aren
 - Advantage: Security policies can be enforced at application level
 - Disadvantage: Computing and memory performance requirements
 
+### Circuit Level Gateway
+
+- Checks/controls at TCP connection level
+- Creates separate connection to outside and inside
+- Checks data before it is being sent to the transport layer
+
 ### Demilitarized Zone (DMZ)
 
 - **Outside world**: Global Internet
@@ -553,8 +559,8 @@ Sniffing of cookies/tokens from a connection in another tab.
 
 ### Strong Algorithms
 
-- There is no attack that can break it with less effort than a brute force attack ("complete enumeration")
-- There are so many keys that a complete search of key space is infeasable
+- There is **no attack that can break it with less effort than a brute force attack** ("complete enumeration")
+- There are so many keys that a **complete search of key space is infeasible**
 
 ### Crypto Attack Classes
 
@@ -566,7 +572,7 @@ Sniffing of cookies/tokens from a connection in another tab.
 
 ### Perfect Security
 
-Ciphertext does not give any information you don't already have about the plaintext
+Ciphertext does not give any information you don't already have about the plaintext ($p(m(c))=p(m)$)
 
 ### One-Time-Pad
 
@@ -582,7 +588,14 @@ Ciphertext does not give any information you don't already have about the plaint
 
 Encryption like one-time-pad, but using pseudo-random bits instead of true random (using a **Crytographically Secure Pseudo-Random Number Generator (CSPRNG)**)
 
-### Cryptographically Secure Pseudo-Random Number Generators (CSPRNG)
+### True Random Number Generators
+
+- Output can't be reproduced or predicted
+- Is based on physical processes
+
+### (Cryptographically Secure) Pseudo-Random Number Generators (CSPRNG)
+
+PSRNGs compute the output based on a seed and an internal state.
 
 A CSPRNG must ...
 
@@ -675,7 +688,7 @@ Two methods for frustrating a statistical analysis:
 - Meanwhile
   - 128bit keys have to be replaced in the coming years
   - 192bit keys are secure in medium term
-  - 256bit keys are hard to crack due to physical boundaries
+  - 256bit keys are hard to crack due to physical boundaries ("state of the art")
 - Quantum computers might be able to crack keys much more quickly
 - Numbers refer to unbroken algorithms in symmetric cryptography
   - Broken algorithm is one where an n bit key can be determined trying out significantly less than 2^n^ keys
@@ -766,6 +779,8 @@ Two methods for frustrating a statistical analysis:
 
 ### RSA Key Generation
 
+> Also see the [handwritten notes](static/rsa_computation.pdf).
+
 1. Alice chooses 2 large prime numbers $p, q$ and computes $n=p \cdot q$, $\phi(n)=(p-1)(q-1)$
 2. Alice chooses an integer $e$ with $1<e<\phi(n)$ that is relatively prime to $\phi(n)$
 3. Alice computes an integer $d$ with $1<d<\phi(n)$ and $d \cdot e = k \cdot \phi(n) + 1$
@@ -774,12 +789,16 @@ Two methods for frustrating a statistical analysis:
 
 ### RSA Encryption
 
+> Also see the [handwritten notes](static/rsa_computation.pdf).
+
 1. Bob obtains $PK_{Alice}=(e,n)$
 2. Bob composes plaintext $m \in M=\{1,2,...,n-1\}$
 3. Bob computes the ciphertext $c=E_{PK{Alice}}(m)=m^e\mod n$
 4. Bob sends $c$ to Alice
 
 ### RSA Decryption
+
+> Also see the [handwritten notes](static/rsa_computation.pdf).
 
 Alice can obtain the plaintext message $m$ by computing $m=D_{SK_{Alice}}(c)=c^d\mod n = m^{ed} \mod n$
 
@@ -842,6 +861,8 @@ Combination of asymmetric and symmetric key methods.
 ### Diffie-Hellman Key Exchange Protocol
 
 **Purpose**: Allow communication partners without prior knowledge of another to establish a shared secret key over an insecure communication channel
+
+> Also see the [handwritten notes](static/diffie_hellman_exchange_computation.pdf).
 
 1. Alice and Bob agree publicly on prime number $p$ and a primitive element $g \leq p-1$
 2. Alice randomly chooses $\alpha \in \{2,...,p-2\}$ and computes $A=g^\alpha \mod p$
