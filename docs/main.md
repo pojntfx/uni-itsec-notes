@@ -5,6 +5,8 @@
 
 # Uni IT Security Notes
 
+> These study materials are heavily based on [professor Schmitz's "IT Security" lecture at HdM Stuttgart](https://www.hdm-stuttgart.de/mi/infoszumstudium/studium/schwerpunkte/it_security_htmldoc2).
+
 ## Basics
 
 ### Security Mindset
@@ -145,9 +147,93 @@ graph TD
 - Telemetry (often hidden in proprietary software behind EULAs)
 - Backdoors
 
-### Race Conditions
+### Infection Paths
 
-Information is being changed after it has been checked, but before it has been executed.
+- **Direct infection**: Mail → Executable
+- **Exploitation of vulnerabilities**: Over network, drive-by infection (downloads which a person has authorized but without understanding the consequences)
+- **External devices**: USB sticks
+- **Bundled** with other functionality: Trojan horses
+
+### Malware Types
+
+- **Computer viruses**
+  - **Boot sector** virus (infects all drives)
+  - **File** virus
+  - **Macro** virus
+  - **Worm**: Network based virus
+- Trojan horses; adware
+- Key loggers, spyware
+- Botnet software
+- Ransomware: Extortion
+
+### Trojan Horses
+
+- Has server and client parts
+- Server is used for installation, which the client then confirms
+- Once installed, an attacker can take control
+  - Reading sensitive data
+  - Key logging
+  - Botnet integration
+
+### Backdoors
+
+Intentionally created remote code execution vulnerability/ingress into system (_Hello, Five Eyes!_).
+
+### Logic Bomb
+
+Malicious function, which is called once condition evaluates to true.
+
+### Rootkit
+
+Collection of services installed on a compromised system, which enables hiding ...
+
+- Logins
+- Processes
+- Files
+
+from users other than `root`.
+
+### Advanced Persistent Threat
+
+**Advanced**:
+
+- Attack is customized to target host (one node)
+- High effort
+- Targets are i.e. VIPs or institutions
+
+**Persistent**:
+
+- First infected host is used to infiltrate the entire system
+- Scans for login information to create an account for the attackers
+
+**Threats**: Often uses Zero-Day vulnerabilities
+
+### Botnet
+
+- Infected host does work for somebody external
+- Master controls the bots and distributes updates to stay hidden
+- Dynamic: Needs to handle hosts being turned on/off and has to hide its existence
+- Can be used to send spam, DDoS attacks, hosting of malicious sites
+
+### Common Reasons for Vulnerabilities
+
+Issues in ...
+
+- Architecture
+- Design
+- Implementation
+
+... lead to attack vectors:
+
+- **Client side**: Browser, office software, E-Mail, media players, ...
+- **Server side**: Web apps, OS services, Anti-virus/backup software
+- **Relaxed security policies**: User has to many capabilities
+- **Abuse of protocols**: Instant messaging can be used as remote control, BitTorrent for distribution etc.
+- **Zero-day attacks**: Non-public vulnerabilities
+
+### Side-Channel Attacks
+
+Indirect (physical) attack on a system; i.e. smudge patterns on a smartphone
 
 ### Buffer Overflow
 
@@ -156,6 +242,10 @@ Information is being changed after it has been checked, but before it has been e
   - Overwriting internal information or allowing attacker to insert machine code to jump back into
   - Possible due to Von Neumann architecture: Programs in data are stored in the same memory
   - C does not check bounds (`gets`, `strcopy`, `memcopy`, `prinf` etc.)
+
+### Race Conditions
+
+Information is being changed after it has been checked, but before it has been executed.
 
 ## Networking
 
@@ -214,19 +304,19 @@ An example connection from the client to the server:
 ### TCP Security Issues
 
 - TCP header doesn't have confidentiality or integrity protection
-- Session hijacking
+- **Session hijacking**
   - When sniffing session details, attacker can impersonate a peer in a TCP connection
   - Attackers can guess session details and attack remotely using spoofed IP addresses
-- RST attack: Attackers can reset/abort attacks by injecting packets with the RST flag
-- Port scanning
+- **RST attack**: Attackers can reset/abort attacks by injecting packets with the RST flag
+- **Port scanning**
   - Find out open ports
   - Determine software running on port
-- SYN flooding
+- **SYN flooding**
   - Overload system resources by initializing many connections and not pursuing them
 
 ### Port Scanning
 
-- Objective: **Collect information**
+- Objective: **Collect information** about ...
   - Installed services
   - Software versions
   - OS
@@ -235,10 +325,10 @@ An example connection from the client to the server:
   - Well-known ports (i.e. SSH → 22)
   - Invalid connection requests: Different way of error handling can be used to fingerprint the OS
 - Possible scanning methods
-  - TCP connect scan
-  - Half-open scan
-  - SYN-ACK scan
-  - ACK scan
+  - **TCP connect** scan
+  - **Half-open** scan
+  - **SYN-ACK** scan
+  - **ACK** scan
 
 ### TCP Protection Mechanisms
 
@@ -388,18 +478,24 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
 ### Web Application Firewalls (WAFs)
 
 - Acts on the application layer
-- Is a reverse prxoy
+- Is a reverse proxy
 - Can protect the web server from "evil" client input
   - Cross-Site scripting
   - SQL injection: Filters out JS or SQL commands in client input by removing special symbols (i.e. `<`, `'` etc)
   - Cookie poisoning: Stores the hash values of sent cookies
-  - HTML manipulation: Encypts URL parameters
+  - HTML manipulation: Encrypts URL parameters
 
 ### Cross-Site Scripting (XSS)
+
+Injection of malicious client-side code (JS, WASM) into site. There are multiple types:
 
 - **Reflected/non-persistent XSS**: Attacker provides malicious data i.e. via URL → server adds malicious code to page → browser executes the malicious code
 - **DOM-based XSS**: Attacker provides malicious data i.e. via URL → client (app running in the browser) adds malicious code to page → browser then executes the malicious code
 - **Stored (persistent) XSS**: Attacker provides malicious data using i.e. their profile page, `POST`s it to the server → server stores it i.e. in a database → Client then requests i.e. the attacker's profile page → server loads the malicious data from the database → adds the stored malicious code to the page → browser then executes the malicious code
+
+### Cross Site Request Forgery (CSRF)
+
+Sniffing of cookies/tokens from a connection in another tab.
 
 ### Intrusion Detection Systems (IDS)
 
@@ -409,15 +505,20 @@ Global Internet → Access Router and Packet Filter → Public Services Host (of
 - Basic Approaches
   - **Signature based**: Use attack signatures/known malicious communication activity patterns
   - **Anomaly based**: Significant deviation from previously recorded baseline activity
-  - **Rule based**: Define allowed by behaviour by app-specific set of legitimate actions
+  - **Rule based**: Define allowed by behavior by app-specific set of legitimate actions
 - Actions
-  - Send ut alarm
+  - Send out alarm
   - Logging
   - Blocking of known patters
 - Realization
   - Appliance
   - Integration in firewall
   - Integration into host
+
+### Injections
+
+- **SQL injection**: SQL commands are sent to the database because neither server nor client escape i.e. `'`
+- **HTML injection**: Parameters in HTML forms can also be sent using a `POST` request
 
 ## Symmetric Encryption
 
