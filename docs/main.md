@@ -44,8 +44,8 @@
 
 ### Safety vs. Security
 
-- **Safety**: Coincidental crashes or failures
-- **Security**: Intentional attacks
+- **Safety**: Coincidental crashes or failures → On average more likely
+- **Security**: Intentional attacks → Less likely
 
 ### Attacks, Threats and Vulnerabilities
 
