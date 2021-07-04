@@ -5,7 +5,7 @@
 
 # Uni IT Security Notes
 
-> These study materials are heavily based on [professor Schmitz's "IT Security" lecture at HdM Stuttgart](https://www.hdm-stuttgart.de/mi/infoszumstudium/studium/schwerpunkte/it_security_htmldoc2).
+> These study materials are heavily based on [professor Schmitz's "IT Security" lecture at HdM Stuttgart](https://www.hdm-stuttgart.de/mi/infoszumstudium/studium/schwerpunkte/it_security_htmldoc2) and prior work of fellow students.
 
 ## Basics
 
@@ -1080,6 +1080,7 @@ Client<->Server: Encrypted data transfer
 
 ### Why can DES be decrypted even though `F` is not invertible?
 
+- DES uses a Feistel Network
 - Key is divided and only one half is put through the round function
 - Both halves are joined using `XOR`
 - In order to decrypt a block, the same algorithm is used, but the divided keys are used in the opposite order
@@ -1134,3 +1135,86 @@ Client<->Server: Encrypted data transfer
     - UDP replies to previous outgoing packet with same IP:Port relation ("UDP connection")
     - Application protocol states
   - Drops unsolicited requests: Packets which don't match known criteria or are part of a DoS attack
+
+### Hash Functions and their Applications
+
+- Cryptographic hash functions are a special type of hash function which is collision resistant and a one-way function
+- Maps a string of any length to a string of fixed length
+- Is injective but not necessarily surjective
+- Applications
+  - Data processing
+  - Integrity checks of data or messages
+  - Obfuscation of passwords (`/etc/shadow`)
+  - Data base of digital signatures
+  - PRNGs: Pseudo-random number generators
+  - Construction of block cyphers
+  - Used in i.e. SHA256, MD5, ...
+
+### Diffie-Hellman Key Exchange Man-in-the-Middle Attack
+
+- The key exchange is vulnerable to a MITM attack
+- Mallory intercepts Alice's public value and sends her own public value to Bob
+- When Bob transmits his public value, Mallory substitutes it with her own and sends it to Alice
+- Mallory can now decrypt any messages sent out by Alice or Bob, read, modify and re-encrypt them with the appropriate key and send them
+- This attack is possible because the key exchange does not authenticate the participants
+- Authentication can be done using digital signatures or other protocol variants
+
+### Diffie-Hellman Key Exchange Protocol Characteristics
+
+![Sequence diagram of protocol](./static/1.png)
+
+It is an asymmetric challenge-response protocol which is used to provide authentication by checking authentication factors. It does so by sending a hash of a random number, which has been encrypted using Alice's public key/cert, to Alice, who then decrypts the hash and sends it to Bob.
+
+### Plaintext Awareness
+
+- It is hard, even with an efficient algorithm, to create a valid ciphertext if plaintext is not taken into account
+- If an attacker tries to send a message to Bob using ciphertext and Alice accepts it as valid, it is not plaintext aware
+- In the [example above](#diffie-hellman-key-exchange-protocol), Alice has more ways to check its validity however (hash etc.), which would not be the case if it were a symmetric response-challenge protocol
+- Known Plaintext Attack
+  - Attacker sniffs the challenge and the response
+  - Tries to use cryptographic methods to get the used password
+  - Worked in GSM systems
+
+### Key Reuse in the One-Time Pad
+
+The following is no longer true ($C$ = Cypher, $K$ = Key, $M$ = Message):
+
+$C1=M1+K$<br>
+$C2=M2+K$<br>
+$D=C1-C2=(M1+K)-(M2+K)=M1-M2$<br>
+
+The difference $D$ now has the same characteristics like $M1-M2$; this means that frequency analysis can be used.
+
+### Ingress and Egress
+
+- **Ingress Filtering**: Incoming packets are not allowed to have IP from internal address range to protect against spoofing
+- **Egress Filtering**: Packets leaving internal networks have to have a source IP from internal range to protect against spoofing and to prevent packets from the internal network from leaking to outer network
+
+### Caesar Cypher Vulnerability
+
+- Key range is way too small (26)
+- Frequency analysis can be used (i.e. checking for `e`)
+
+### Authentication vs. Authorization
+
+- **Authentication**: Communication partners can proof their identity to one another
+- **Authorization**: Access is only available to those with specific permission
+
+### TCP Vulnerabilities if PRNG is predicable
+
+Attacker can generate a sequence number, which can be used in an existing session between two communication partners → Enables session hijacking
+
+### Analog Examples for Security Objectives
+
+- **Authenticity**: Checking the student ID card
+- **Integrity**: Writing with a ball pen instead of a pencil
+- **Availability**: Storing an additional copy of the exam questions at the examination office
+
+### Server vs. Client Authentication in HTTPS
+
+A web server is typically accessible to anyone; it is not important who accesses it. A client however wants to know that a site is trustworthy/authentic, which is why typically only the server is authenticated.
+
+### Vulnerabilities of non-revoked, faked Certs
+
+- Anyone can impersonate who the cert has been given too
+- To prevent this, the certs need to be added to a CRL
