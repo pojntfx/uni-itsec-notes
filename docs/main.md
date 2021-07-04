@@ -1024,3 +1024,113 @@ Client<->Server: Encrypted data transfer
   - Server has a public key ("host key")
   - Client has a trustworthy copy of the host key
   - Reliable transport protocol (TCP) between client and server
+
+## Frequently Asked Questions
+
+### Phishing Attacks
+
+- Attacker tries to get a user to log in with a fake mail and a fake site
+- Attacker steals the login information of the user in order to get access to bank accounts or credit card info
+- Many options in addition to mail
+  - Malware (Keylogger)
+  - DNS-based phishing (Redirection to fake site)
+  - Man-in-the-middle Phishing
+  - XSS
+- Violated security objectives
+  - **Authenticity**: Attacker pretends to be a different company
+  - **Confidentiality**: Non-secured connection
+  - **Authorization**: The attacker can steal credentials
+  - **Privacy**: The attacker can get identity-related info by access to the user's account
+  - **Non-repudation**: The attacker can transfer money
+
+### Phishing Attack Prevention
+
+- Spam filters: Most phishing mails can be filtered using a spam filter
+- A link's text should be compared to the actual URL (the `href` tag)
+- Check the URL in the address bar
+- Antivirus-Apps
+- Using an up-to-date system
+- Checking the certificates of a site
+- Using HTTPS
+
+### Certificates and CAs
+
+- Certifies properties of people or objects and their authenticity and integrity using cryptographic processes
+- A public key certificate provides the public key of a person or organization and confirms it
+- Certificates are signed by the service provider/certificate authority (CA) or a government authority (i.e. COVID-19), which adds to trust
+
+### Certificate Revocation
+
+- As soon as a cert's private key has been leaked, it needs to be revoked by putting it on a certificate revocation list
+- Before a cert should be used it should be checked if it has not been revoked yet
+- There are also other reasons for cert revocation
+  - Change of certificate metadata (i.e. name change)
+  - Dissolution of the organization
+  - Removal of privileges
+
+### Validation of Certificates
+
+- Certificate has the service provider's/CA's signature
+- The signature is a hash of the certificate encrypted with the CA's private key, which can be validated by decrypting it with the CA's known public key
+- Date validity needs to be checked
+- Revocation needs to be checked
+- Risks
+  - Revocation checks are crucial because they allow a user to verify the identity of the owner of the site and discover whether the certificate authority still considers the digital certificate trustworthy
+  - Attacker could fake a site using a revoked certificate
+
+### Why can DES be decrypted even though `F` is not invertible?
+
+- Key is divided and only one half is put through the round function
+- Both halves are joined using `XOR`
+- In order to decrypt a block, the same algorithm is used, but the divided keys are used in the opposite order
+
+### SQL Injection
+
+- Inputs from forms, API requests etc. are passed to the database without any validation for embedded snippets
+- Embedded SQL snippets will run on the DB, allowing the attacker to run any snippet on the database
+- Violated security objectives
+  - **Authorization**: Access is granted without authorization
+  - **Confidentiality**: Access to info in database
+  - **Integrity**: Data can be manipulated
+  - **Privacy**: Access to potentially identity-related private info
+  - **Availability**: Database could be dropped, which would take the system down (no schema after attack)
+
+### DNS Spoofing
+
+- Attacker sends fake DNS answers and pretends to be the relevant nameserver
+- Attacker needs to send the fake answer before the relevant nameserver can; this is for example possible by a DoS attack
+- Attacker can also add a fake entry to `/etc/hosts`
+- Violated security objectives
+  - **Authenticity**: Attacker pretends to be someone else
+  - **Confidentiality**: Attacker eavesdrops on communication with DNS server
+
+### Replay Attacks and Signatures
+
+- Attacker tries to communicate using a packet which they sniffed beforehand
+- Can be provided by using a random number or nonce, which is also being encrypted; the number would have to be guessed
+- Encryption and signatures don't help prevent replay attacks as decryption is not required to replay the attack
+- Violated security objectives
+  - **Confidentiality**: Third parties shouldn't have access to the communication
+  - **Authenticity**: Attacker can pretend to be someone else
+  - **Authorization**: If sniffed packet contains login info
+
+### VPN Access from Intranet to external Mail Server
+
+- VPN gateway is required
+- IPSec tunnel mode can be used
+- Firewall rules, VPN connection and routing tables need to be configured
+
+### Stateless vs. Stateful Packet Filters/Firewalls
+
+- **Stateless**: Decides what to do with packets based on static values
+  - IP:Port of source/destination
+  - TCP flags
+- **Stateful**: Decides what to do using a state table
+  - Keeps track of connections using a state table (new/established/related/...)
+  - Can detect MTU changes and packet fragmentation
+  - Can't secure application layer from viruses
+  - Decides what to do with packets based on dynamic values
+    - TCP connections
+    - UDP replies to previous outgoing packet with same IP:Port relation ("UDP connection")
+    - Application protocol states
+  - Drops unsolicited requests: Packets which don't match known criteria or are part of a DoS attack
