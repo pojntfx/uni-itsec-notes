@@ -277,6 +277,20 @@
 <li><a href="#connection-states">Connection States</a></li>
 <li><a href="#ssh-transport-layer-protocol">SSH Transport Layer Protocol</a></li>
 </ul></li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#phishing-attacks">Phishing Attacks</a></li>
+<li><a href="#phishing-attack-prevention">Phishing Attack Prevention</a></li>
+<li><a href="#certificates-and-cas">Certificates and CAs</a></li>
+<li><a href="#certificate-revocation">Certificate Revocation</a></li>
+<li><a href="#validation-of-certificates">Validation of Certificates</a></li>
+<li><a href="#why-can-des-be-decrypted-even-though-f-is-not-invertible">Why can DES be decrypted even though <code>F</code> is not invertible?</a></li>
+<li><a href="#sql-injection">SQL Injection</a></li>
+<li><a href="#dns-spoofing">DNS Spoofing</a></li>
+<li><a href="#replay-attacks-and-signatures">Replay Attacks and Signatures</a></li>
+<li><a href="#vpn-access-from-intranet-to-external-mail-server">VPN Access from Intranet to external Mail Server</a></li>
+<li><a href="#stateless-vs.-stateful-packet-filtersfirewalls">Stateless vs. Stateful Packet Filters/Firewalls</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -1373,6 +1387,135 @@ Client&lt;-&gt;Server: Encrypted data transfer</code></pre>
 <li>Server has a public key (“host key”)</li>
 <li>Client has a trustworthy copy of the host key</li>
 <li>Reliable transport protocol (TCP) between client and server</li>
+</ul></li>
+</ul>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="phishing-attacks">Phishing Attacks</h3>
+<ul>
+<li>Attacker tries to get a user to log in with a fake mail and a fake site</li>
+<li>Attacker steals the login information of the user in order to get access to bank accounts or credit card info</li>
+<li>Many options in addition to mail
+<ul>
+<li>Malware (Keylogger)</li>
+<li>DNS-based phishing (Redirection to fake site)</li>
+<li>Man-in-the-middle Phishing</li>
+<li>XSS</li>
+</ul></li>
+<li>Violated security objectives
+<ul>
+<li><strong>Authenticity</strong>: Attacker pretends to be a different company</li>
+<li><strong>Confidentiality</strong>: Non-secured connection</li>
+<li><strong>Authorization</strong>: The attacker can steal credentials</li>
+<li><strong>Privacy</strong>: The attacker can get identity-related info by access to the user’s account</li>
+<li><strong>Non-repudation</strong>: The attacker can transfer money</li>
+</ul></li>
+</ul>
+<h3 id="phishing-attack-prevention">Phishing Attack Prevention</h3>
+<ul>
+<li>Spam filters: Most phishing mails can be filtered using a spam filter</li>
+<li>A link’s text should be compared to the actual URL (the <code>href</code> tag)</li>
+<li>Check the URL in the address bar</li>
+<li>Antivirus-Apps</li>
+<li>Using an up-to-date system</li>
+<li>Checking the certificates of a site</li>
+<li>Using HTTPS</li>
+</ul>
+<h3 id="certificates-and-cas">Certificates and CAs</h3>
+<ul>
+<li>Certifies properties of people or objects and their authenticity and integrity using cryptographic processes</li>
+<li>A public key certificate provides the public key of a person or organization and confirms it</li>
+<li>Certificates are signed by the service provider/certificate authority (CA) or a government authority (i.e. COVID-19), which adds to trust</li>
+</ul>
+<h3 id="certificate-revocation">Certificate Revocation</h3>
+<ul>
+<li>As soon as a cert’s private key has been leaked, it needs to be revoked by putting it on a certificate revocation list</li>
+<li>Before a cert should be used it should be checked if it has not been revoked yet</li>
+<li>There are also other reasons for cert revocation
+<ul>
+<li>Change of certificate metadata (i.e. name change)</li>
+<li>Dissolution of the organization</li>
+<li>Removal of privileges</li>
+</ul></li>
+</ul>
+<h3 id="validation-of-certificates">Validation of Certificates</h3>
+<ul>
+<li>Certificate has the service provider’s/CA’s signature</li>
+<li>The signature is a hash of the certificate encrypted with the CA’s private key, which can be validated by decrypting it with the CA’s known public key</li>
+<li>Date validity needs to be checked</li>
+<li>Revocation needs to be checked</li>
+<li>Risks
+<ul>
+<li>Revocation checks are crucial because they allow a user to verify the identity of the owner of the site and discover whether the certificate authority still considers the digital certificate trustworthy</li>
+<li>Attacker could fake a site using a revoked certificate</li>
+</ul></li>
+</ul>
+<h3 id="why-can-des-be-decrypted-even-though-f-is-not-invertible">Why can DES be decrypted even though <code>F</code> is not invertible?</h3>
+<ul>
+<li>Key is divided and only one half is put through the round function</li>
+<li>Both halves are joined using <code>XOR</code></li>
+<li>In order to decrypt a block, the same algorithm is used, but the divided keys are used in the opposite order</li>
+</ul>
+<h3 id="sql-injection">SQL Injection</h3>
+<ul>
+<li>Inputs from forms, API requests etc. are passed to the database without any validation for embedded snippets</li>
+<li>Embedded SQL snippets will run on the DB, allowing the attacker to run any snippet on the database</li>
+<li>Violated security objectives
+<ul>
+<li><strong>Authorization</strong>: Access is granted without authorization</li>
+<li><strong>Confidentiality</strong>: Access to info in database</li>
+<li><strong>Integrity</strong>: Data can be manipulated</li>
+<li><strong>Privacy</strong>: Access to potentially identity-related private info</li>
+<li><strong>Availability</strong>: Database could be dropped, which would take the system down (no schema after attack)</li>
+</ul></li>
+</ul>
+<h3 id="dns-spoofing">DNS Spoofing</h3>
+<ul>
+<li>Attacker sends fake DNS answers and pretends to be the relevant nameserver</li>
+<li>Attacker needs to send the fake answer before the relevant nameserver can; this is for example possible by a DoS attack</li>
+<li>Attacker can also add a fake entry to <code>/etc/hosts</code></li>
+<li>Violated security objectives
+<ul>
+<li><strong>Authenticity</strong>: Attacker pretends to be someone else</li>
+<li><strong>Confidentiality</strong>: Attacker eavesdrops on communication with DNS server</li>
+</ul></li>
+</ul>
+<h3 id="replay-attacks-and-signatures">Replay Attacks and Signatures</h3>
+<ul>
+<li>Attacker tries to communicate using a packet which they sniffed beforehand</li>
+<li>Can be provided by using a random number or nonce, which is also being encrypted; the number would have to be guessed</li>
+<li>Encryption and signatures don’t help prevent replay attacks as decryption is not required to replay the attack</li>
+<li>Violated security objectives
+<ul>
+<li><strong>Confidentiality</strong>: Third parties shouldn’t have access to the communication</li>
+<li><strong>Authenticity</strong>: Attacker can pretend to be someone else</li>
+<li><strong>Authorization</strong>: If sniffed packet contains login info</li>
+</ul></li>
+</ul>
+<h3 id="vpn-access-from-intranet-to-external-mail-server">VPN Access from Intranet to external Mail Server</h3>
+<ul>
+<li>VPN gateway is required</li>
+<li>IPSec tunnel mode can be used</li>
+<li>Firewall rules, VPN connection and routing tables need to be configured</li>
+</ul>
+<h3 id="stateless-vs.-stateful-packet-filtersfirewalls">Stateless vs. Stateful Packet Filters/Firewalls</h3>
+<ul>
+<li><strong>Stateless</strong>: Decides what to do with packets based on static values
+<ul>
+<li>IP:Port of source/destination</li>
+<li>TCP flags</li>
+</ul></li>
+<li><strong>Stateful</strong>: Decides what to do using a state table
+<ul>
+<li>Keeps track of connections using a state table (new/established/related/…)</li>
+<li>Can detect MTU changes and packet fragmentation</li>
+<li>Can’t secure application layer from viruses</li>
+<li>Decides what to do with packets based on dynamic values
+<ul>
+<li>TCP connections</li>
+<li>UDP replies to previous outgoing packet with same IP:Port relation (“UDP connection”)</li>
+<li>Application protocol states</li>
+</ul></li>
+<li>Drops unsolicited requests: Packets which don’t match known criteria or are part of a DoS attack</li>
 </ul></li>
 </ul>
 </body>
