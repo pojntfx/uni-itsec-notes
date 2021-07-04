@@ -8,3 +8,5 @@ WASM
 Feistel
 blockwise
 Non-repudation
+surjective
+PRNG
