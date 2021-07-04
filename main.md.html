@@ -302,6 +302,10 @@
 <li><a href="#analog-examples-for-security-objectives">Analog Examples for Security Objectives</a></li>
 <li><a href="#server-vs.-client-authentication-in-https">Server vs. Client Authentication in HTTPS</a></li>
 <li><a href="#vulnerabilities-of-non-revoked-faked-certs">Vulnerabilities of non-revoked, faked Certs</a></li>
+<li><a href="#applied-security-objectives">Applied Security Objectives</a></li>
+<li><a href="#firewall-appliance-vs.-personal-firewall">Firewall Appliance vs. Personal Firewall</a></li>
+<li><a href="#diffie-hellman-vs.-rsa">Diffie-Hellman vs. RSA</a></li>
+<li><a href="#indirect-blocklisting">Indirect Blocklisting</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1309,6 +1313,7 @@
 <li>Certificate signature algorithm</li>
 <li>Certificate signature value (signature of the CA which signs the cert)</li>
 </ul></li>
+<li>Certificates never contain secrets (i.e. private keys)</li>
 </ul>
 <h2 id="transport-security">Transport Security</h2>
 <h3 id="internet-model">Internet Model</h3>
@@ -1607,5 +1612,26 @@ Client&lt;-&gt;Server: Encrypted data transfer</code></pre>
 <li>Anyone can impersonate who the cert has been given too</li>
 <li>To prevent this, the certs need to be added to a CRL</li>
 </ul>
+<h3 id="applied-security-objectives">Applied Security Objectives</h3>
+<p>A person is communicating with <code>amazon.com</code>.</p>
+<ul>
+<li>Validating that they are actually communicating with <code>amazon.com</code>: <code>amazon.com</code> needs a certificate, which is to be checked by the client → <strong>Authentication</strong></li>
+<li>Making sure that credit card info can’t be eavesdropped on: Needs encryption, i.e. HTTPS → <strong>Confidentiality</strong>, <strong>Privacy</strong></li>
+<li>Ensuring that nobody can buy something using their information: Needs to be behind i.e. a Password, i.e. HTTPS with HTTP digest authentication → <strong>Authorization</strong></li>
+<li>Validating that a mail to many employees has actually been sent by the CEO: Digital signature, combined with a certificate to verify the signature → <strong>Authenticity</strong>, <strong>Integrity</strong>, <strong>Non-Repudiation</strong></li>
+<li>Air traffic control can’t be offline: DoS protection and failovers → <strong>Availability</strong></li>
+</ul>
+<h3 id="firewall-appliance-vs.-personal-firewall">Firewall Appliance vs. Personal Firewall</h3>
+<ul>
+<li>Appliance: Can’t filter by application</li>
+<li>Personal: Can’t protect against OS vulnerabilities and is easily misconfigured</li>
+</ul>
+<h3 id="diffie-hellman-vs.-rsa">Diffie-Hellman vs. RSA</h3>
+<ul>
+<li>Diffie-Hellman allows creating a shared secret key for symmetric encryption over an insecure communication channel</li>
+<li>RSA uses public and private keys for asymmetric encryption; only public keys need to be exchanged</li>
+</ul>
+<h3 id="indirect-blocklisting">Indirect Blocklisting</h3>
+<p>Sender’s mail address is faked and used to send spam, which leads the recipient to block the sender’s address, despite them never having sent any spam themselves. Can be fixed by checking signature and certificate instead and blocking based on signature or blocking all messages without signature or certificate.</p>
 </body>
 </html>
