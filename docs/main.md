@@ -939,6 +939,7 @@ It depends on three properties which can't be relaxed:
   - ID of signature algorithm
   - Certificate signature algorithm
   - Certificate signature value (signature of the CA which signs the cert)
+- Certificates never contain secrets (i.e. private keys)
 
 ## Transport Security
 
@@ -1218,3 +1219,27 @@ A web server is typically accessible to anyone; it is not important who accesses
 
 - Anyone can impersonate who the cert has been given too
 - To prevent this, the certs need to be added to a CRL
+
+### Applied Security Objectives
+
+A person is communicating with `amazon.com`.
+
+- Validating that they are actually communicating with `amazon.com`: `amazon.com` needs a certificate, which is to be checked by the client → **Authentication**
+- Making sure that credit card info can't be eavesdropped on: Needs encryption, i.e. HTTPS → **Confidentiality**, **Privacy**
+- Ensuring that nobody can buy something using their information: Needs to be behind i.e. a Password, i.e. HTTPS with HTTP digest authentication → **Authorization**
+- Validating that a mail to many employees has actually been sent by the CEO: Digital signature, combined with a certificate to verify the signature → **Authenticity**, **Integrity**, **Non-Repudiation**
+- Air traffic control can't be offline: DoS protection and failovers → **Availability**
+
+### Firewall Appliance vs. Personal Firewall
+
+- Appliance: Can't filter by application
+- Personal: Can't protect against OS vulnerabilities and is easily misconfigured
+
+### Diffie-Hellman vs. RSA
+
+- Diffie-Hellman allows creating a shared secret key for symmetric encryption over an insecure communication channel
+- RSA uses public and private keys for asymmetric encryption; only public keys need to be exchanged
+
+### Indirect Blocklisting
+
+Sender's mail address is faked and used to send spam, which leads the recipient to block the sender's address, despite them never having sent any spam themselves. Can be fixed by checking signature and certificate instead and blocking based on signature or blocking all messages without signature or certificate.
