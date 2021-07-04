@@ -1112,7 +1112,6 @@ Client<->Server: Encrypted data transfer
 - Can be provided by using a random number or nonce, which is also being encrypted; the number would have to be guessed
 - Encryption and signatures don't help prevent replay attacks as decryption is not required to replay the attack
 - Violated security objectives
-  - **Confidentiality**: Third parties shouldn't have access to the communication
   - **Authenticity**: Attacker can pretend to be someone else
   - **Authorization**: If sniffed packet contains login info
 
