@@ -1,7 +1,11 @@
-% Uni IT Security Further Resources
-% Felicitas Pojtinger
-% \today
-\tableofcontents
+---
+author: [Felicitas Pojtinger]
+date: "2022-02-01"
+subject: "Uni IT Security Further Resources"
+keywords: [security-fundamentals, it-security, hdm-stuttgart]
+subtitle: "Further Resources for the IT security course at HdM Stuttgart"
+lang: "en"
+---
 
 ## Uni IT Security Further Resources
 

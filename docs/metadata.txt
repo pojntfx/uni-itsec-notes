@@ -1,6 +1,0 @@
-Uni IT Security Notes
-Notes for the IT security course at HdM Stuttgart.
-© 2021 Felicitas Pojtinger under AGPL-3.0
-https://github.com/pojntfx/uni-itsec-notes
-https://github.com/pojntfx/uni-itsec-notes/releases/latest/download/all.zip
-🧑‍💻 Happy hacking!
