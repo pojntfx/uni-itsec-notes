@@ -1,7 +1,11 @@
-% Uni IT Security Notes
-% Felix Pojtinger
-% \today
-\tableofcontents
+---
+author: [Felix Pojtinger]
+date: "2022-02-01"
+subject: "Uni IT Security Notes"
+keywords: [security-fundamentals, it-security, hdm-stuttgart]
+subtitle: "Notes for the IT security course at HdM Stuttgart"
+lang: "en"
+---
 
 # Uni IT Security Notes
 
