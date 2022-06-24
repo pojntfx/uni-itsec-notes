@@ -1,5 +1,5 @@
 ---
-author: [Felix Pojtinger]
+author: [Felicitas Pojtinger]
 date: "2022-02-01"
 subject: "Uni IT Security Further Resources"
 keywords: [security-fundamentals, it-security, hdm-stuttgart]
