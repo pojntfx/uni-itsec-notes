@@ -988,8 +988,8 @@ MAC Computation
         been altered
 -   Using block cypher f_(k) and hash function hash:
     MAC(m) = f_(k)(hash(m))
--   Using a key dependent cryptographic hash function hash(k, m):
-    MAC(m) = hash(k, m)
+-   Using a key dependent cryptographic hash function hash(k,m):
+    MAC(m) = hash(k,m)
 
 Hash Function Requirements
 
@@ -1006,7 +1006,7 @@ Public Key Cryptography
 
 Alice:
 
-1.  Generates key pair (PK_(Alice), SK_(Alice))
+1.  Generates key pair (PK_(Alice),SK_(Alice))
 2.  Published PK_(Alice) at Trent’s
 3.  c received → decrypts m = D_(SK_(Alice))(C)
 
@@ -1027,19 +1027,19 @@ RSA Key Generation
   Also see the handwritten notes.
 
 1.  Alice chooses 2 large prime numbers p, q and computes n = p ⋅ q,
-    ϕ(n) = (p − 1)(q − 1)
+    ϕ(n) = (p−1)(q−1)
 2.  Alice chooses an integer e with 1 < e < ϕ(n) that is relatively
     prime to ϕ(n)
 3.  Alice computes an integer d with 1 < d < ϕ(n) and
     d ⋅ e = k ⋅ ϕ(n) + 1
-4.  Alice publishes her public key PK_(Alice) = (e, )
+4.  Alice publishes her public key PK_(Alice) = (e,)
 5.  Alice keeps her private key SK_(Alice) = d and p, q, ϕ(n) secret
 
 RSA Encryption
 
   Also see the handwritten notes.
 
-1.  Bob obtains PK_(Alice) = (e, n)
+1.  Bob obtains PK_(Alice) = (e,n)
 2.  Bob composes plaintext m ∈ M = {1, 2, ..., n − 1}
 3.  Bob computes the ciphertext c = E_(PKAlice)(m) = m^(e) mod  n
 4.  Bob sends c to Alice
@@ -1063,8 +1063,8 @@ RSA Security
     -   RSA problem and integer factorization still lack mathematical
         proof for their complexity
 -   Organizational properties
-    -   Authenticity of the public key (e, n)
-    -   Confidentiality of the secret key (d, p, q)
+    -   Authenticity of the public key (e,n)
+    -   Confidentiality of the secret key (d,p,q)
 -   Mathematical properties
     -   Complexity of factoring the modulus n
     -   Complexity of solving the RSA problem
@@ -1077,7 +1077,7 @@ Combination of asymmetric and symmetric key methods.
 
 Alice:
 
-1.  Generates key pair (PK_(Alice), SK_(Alice))
+1.  Generates key pair (PK_(Alice),SK_(Alice))
 2.  Publishes PK_(Alice) at Trent’s
 3.  c received → Decrypts K = D_(SK_(Alice))(c)
 4.  Alice and bob switch over to the symmetric key algorithm with key K
@@ -1167,7 +1167,7 @@ Digital Signatures
 
 Alice:
 
-1.  Generates key pair (PK_(Alice), SK_(Alice))
+1.  Generates key pair (PK_(Alice),SK_(Alice))
 2.  Publishes PK_(Alice) at Trent’s
 3.  Computes sigAlice(m) = E_(SK_(Alice))(hash(m))
 
@@ -1186,13 +1186,13 @@ Bob:
 RSA Signatures
 
 -   Conventions
-    -   PK_(Alice) = (e, n)
+    -   PK_(Alice) = (e,n)
     -   SK_(Alice) = d
     -   m is the message to be signed
     -   h is the secure hash function
 -   Computation of signature: sig_(Alice)(m) = (h(m))^(d) mod  n
 -   Verification of signature
-    -   Bob receives (m′, sig′)
+    -   Bob receives (m′,sig′)
     -   Bob computes h(m′) and (sig′)^(e) mod  n
     -   If both match, the signature is verified
 
@@ -1496,7 +1496,7 @@ Key Reuse in the One-Time Pad
 
 The following is no longer true (C = Cypher, K = Key, M = Message):
 
-C1 = M1 + K C2 = M2 + K D = C1 − C2 = (M1 + K) − (M2 + K) = M1 − M2
+C1 = M1 + K C2 = M2 + K D = C1 − C2 = (M1+K) − (M2+K) = M1 − M2
 
 The difference D now has the same characteristics like M1 − M2; this
 means that frequency analysis can be used.
