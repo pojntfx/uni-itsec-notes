@@ -1,236 +1,230 @@
-commit ad304bc438662feb8ec4a08f029dff3c337bf4ba
-Author: Felicitas Pojtinger <felicitas@pojtinger.com>
-Date:   Fri Jun 24 18:54:44 2022 +0200
-
-    chore: Update personal info
-
-commit 6cc99cb25e67df7fd50dc1e059aa101332668fba
+commit 5c63927aa757fea1b4d019e08ed1bd58f0e713d0
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 24 18:48:37 2022 +0200
 
     build: Port to Deliverance
 
-commit 33dfae50c09f4978b92d4fb28e6b56358c556679
+commit 64344b6c2292208eaf13376028d45ff8cca5a882
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jul 4 15:16:58 2021 +0000
 
     fix: Remove unnecessary security objective from replay attack
 
-commit 60f8fd602c4e1cf50bf935ee4e15e7c1b3c642c9
+commit 17d38eeed97ea55554ed1a5410ce298d893f02f4
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jul 4 12:02:49 2021 +0000
 
     fix: Correct TCP overview syntax
 
-commit 5b8f66efbdbf7c3dc920f9a71e68c46c6fd504d1
+commit 7623ba3ec10a1f43a12096b7a519858c7d6138af
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jul 4 11:24:25 2021 +0000
 
     feat: Add last FAQ section on security objects and blocklisting
 
-commit a5aacbbd8687e056294eca999a6a6548765a9b89
+commit 44268c427662dec6ea198b46ce4ff49fd146fec0
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jul 4 10:55:23 2021 +0000
 
     feat: Add FAQs on hashes and more crypto
 
-commit 025334d6389bce745ac95aa43e23fe738212b4d4
+commit 8f677cc5186b414a99c3e8fa2fb5279b65d0fd31
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jul 4 09:52:17 2021 +0000
 
     feat: Add FAQ till firewall section
 
-commit 49dc77132c04ab4866c0c02d08e6ebff6ed4bc46
+commit 7d21ece6825a3b94539327cccf1dc277df7ace40
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jul 2 21:57:01 2021 +0000
 
     feat: Add conclusions on safety vs security
 
-commit ebd9bc1752ad4bdfdeba1e05af45ecdd614130ca
+commit d2a9bc1039fa2bbfcbb473d4362dacf930e2add6
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Tue Jun 29 14:21:23 2021 +0000
 
     chore: Bump build system
 
-commit ff31d3002d519707f174f21b081986197f080729
+commit bd0883c7bd9add8dffc43c05d07efea2ca35abd9
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Tue Jun 29 14:00:18 2021 +0000
 
     chore: Bump build system
 
-commit 3a2c7ecb834e9f2f1ea951278bc9f8d0d2c1ab6a
+commit 6a990b4af28bca3c0290f1ecb8536622cf60ba2d
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sat Jun 26 08:22:08 2021 +0000
 
     feat: Add handwritten notes on RSA and Diffie-Hellman
 
-commit b14c4084a5a3307e1168ce4a1343a7a0f840d7d3
+commit 327c0a99e77d71892e8bc15d057e9ba0ebddefa4
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sat Jun 26 08:21:53 2021 +0000
 
     feat: Add static folder support
 
-commit e27589431d9ac89512aea8606f8d9dd2aa4f5113
+commit 8c28e7255951d4bda6a7a84c158c0667e1c679f0
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sat Jun 26 07:30:00 2021 +0000
 
     feat: Add malware section
 
-commit 2fd90f5b768237d4ae801031c39724b592860c3f
+commit f8ba227147ff282da0de9a58136a778d235d5aed
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 25 22:22:07 2021 +0000
 
     feat: Add more info on risk and threat analysis
 
-commit 7a06502af824fd2fe0497d96bb01f1016fe3f703
+commit 5fe03f094755af6714e5342d8ad0af40979926e5
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 24 22:19:09 2021 +0000
 
     feat: Add more malware types
 
-commit a3b280c4a49014e798c12dead9f06145b67af87c
+commit f9f5b64a4bc72e2ff1d62fc86c9502f03fcf63c9
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 24 21:42:43 2021 +0000
 
     feat: Add XSS example
 
-commit d41fe6815e66f9c17e69d687f5ea5d23131997ba
+commit 9f67d1cc8d57a52e198327528a29d2a017fd043c
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Wed Jun 23 18:05:51 2021 +0000
 
     feat: Add certificates and transport security sections
 
-commit 401407ea0c6aab01b8b4aeb4733910806df1a02c
+commit 0c6e98e84b1f413d8037144ce88249b0b6badd97
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 20 22:44:10 2021 +0000
 
     Revert "build: Use documatio"
     
-    This reverts commit 2839eefc25eac74121f4b1cf997c59855dec2e0d.
+    This reverts commit 735475fe34c5d0f00f27930780f66768f5cea8f2.
 
-commit ad33d85de2cb5faf7512ff73f6ddd8a5b18c89a4
+commit 88ea2bc44897938ca13cbc46fccf072b211cd8ec
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 20 22:44:06 2021 +0000
 
     Revert "fix: Require `texlive-full`"
     
-    This reverts commit da4b6d1f47d42aa1473e3fd7641c2ed22be755d0.
+    This reverts commit 7861fef4013cbbcd97c52762191585c21a9cfd8d.
 
-commit da4b6d1f47d42aa1473e3fd7641c2ed22be755d0
+commit 7861fef4013cbbcd97c52762191585c21a9cfd8d
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 20 22:29:16 2021 +0000
 
     fix: Require `texlive-full`
 
-commit 2839eefc25eac74121f4b1cf997c59855dec2e0d
+commit 735475fe34c5d0f00f27930780f66768f5cea8f2
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 20 22:27:05 2021 +0000
 
     build: Use documatio
 
-commit 2c49133bbc052e1ef77dd91898795c71cd4f3095
+commit 8aba7400bfb279d430ab9a4f424a3d6f4e28a286
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 18 19:13:33 2021 +0000
 
     feat: Add ToC to HTML output
 
-commit a63a11c9fc7e1b34b6f6fa9bf7e018269516722b
+commit 39a1ddecd889e1a66898153bad7a9ce3ec8c80ea
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 18 18:55:15 2021 +0000
 
     fix: Open documents in new tabs in index
 
-commit dab647993a95e00549a098dbd1587ae4e96bc935
+commit 4a14bf1ad1388e5504cc373a58493484f77e7c40
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 18 18:31:58 2021 +0000
 
     feat: Add slides for HTML and PDF versions
 
-commit 414877d1a115450ec14d157460f6c0669d87f518
+commit 0714527450c764a48cd65d2c3cf3d2cef783153e
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Wed Jun 16 21:21:01 2021 +0000
 
     feat: Add Diffie-Hellman key exchange protocol and starter on digital signatures
 
-commit f9b9c8ee7fafca1122d332f326e41acf4761d258
+commit aef66b9890a2b8697f0958c43a5bd54a79f25054
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Wed Jun 16 20:58:46 2021 +0000
 
     feat: Add docs on discrete logarithms and one-way functions
 
-commit 9f88278921bdb71e3103e1983fb10f30ea187df9
+commit 0a33eb46bd13e4ee2532e9ab33b8629d11794b42
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Mon Jun 14 18:00:14 2021 +0000
 
     feat: Add section on RSA
 
-commit d3454905540bfa0150966f7ca009f7b50c6c0b63
+commit 309018cc4b004f5a349aab9dfa34f2dd16d40619
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 10 11:20:41 2021 +0000
 
     feat: Add section on message authentication
 
-commit 4a1529a712cc1944a7e89a9769033ee4b7c3aa71
+commit 4c23fb6a64c67e08c60e9ff958062c226e13d2cb
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Mon Jun 7 19:59:01 2021 +0000
 
     docs: Add links to Jakob and Danny's resources
 
-commit c5a092ee527c79b838d987ad3b5b86bb4f124b6e
+commit 2a101f5329db8b652cac8a6393d0827979dd3fa4
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Mon Jun 7 19:01:42 2021 +0000
 
     feat: Add rest of encryption section
 
-commit 663ee80fab4179d71d6113b1e2bf733d3fb57fc1
+commit 12a517f23ea96361c8a11f7d101a9a7c3c3671d1
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 6 17:13:14 2021 +0000
 
     feat: Add introduction to encryption
 
-commit 84c5b89832a9c42975bfebb5d042199adc5e0ba4
+commit 09ec26f8538b37045bdca6da572a9406662589ca
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 6 16:28:45 2021 +0000
 
     feat: Add finishing sections on perimeter security
 
-commit bce7a30399372ec4addc0396c6666072e2e96da5
+commit d685f70ced56823479ac080d1390ac3cca3d46cd
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Sun Jun 6 14:30:21 2021 +0000
 
     feat: Add info on stateful firewalls/gateways
 
-commit 60097f046b8636c7749ec08ac7c0fbcd46986390
+commit 7753919c86d4dcdeb01ea522e7531a78388c024a
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 4 17:35:35 2021 +0000
 
     feat: Start adding perimeter defense basics
 
-commit b0e7f7a933878136ec3140f6ab0c343793faf108
+commit f41e9bb9f3419933e1b7b677c8d5b385a430b535
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Fri Jun 4 17:08:29 2021 +0000
 
     feat: Add notes on TCP security issues
 
-commit eeb1f3c2117116c67703e3d0c8ff1896d3660d85
+commit 791c15b6ead5442f0aff2cb8c6e408c5dfb14da3
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 3 22:07:37 2021 +0000
 
     feat: Add intro on TCP issues and security frameworks
 
-commit 9c5279de7fa85ddfef5b6b27971f90c6a0cd7966
+commit 3b431e2e06c10706cbd9ec0a67c99c6881436dca
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 3 21:48:29 2021 +0000
 
     feat: Add sections up to STRIDE
 
-commit de13993fd23c9d7ff5f634d2d0918eea1db39199
+commit 22e9089d78036aa30b5e1d4475d5e13dce09d67c
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 3 19:50:14 2021 +0000
 
     feat: Start adding basics section
 
-commit bdec5f45092611b446bffb5a27c87db1f4689812
+commit 96b3bf7aa433dc5c765da42f25e8ff0b2c4459a9
 Author: Felicitas Pojtinger <felicitas@pojtinger.com>
 Date:   Thu Jun 3 21:36:19 2021 +0200
 
